@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Браки и разводы</title>
+    {% load static %}
+    {# Подключение CSS #}
+    <link rel="stylesheet" href="{% static 'css/highcharts.css'%}" type="text/css">
+    {# Подключение JavaScript #}
+    <script src="{% static 'js/highcharts.js' %}"></script>
+    <script src="{% static 'js/exporting.js' %}"></script>
+    <script src="{% static 'js/export-data.js' %}"></script>
+    <script src="{% static 'js/accessibility.js' %}"></script>
+</head>
+<body>    
+    <h2>Браки и разводы</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Показать">
+    </form>
+
+    <br>
+    <table>
+        <caption>Таблица 1. Основные показатели брачности и разводимости населения</caption>
+        <tr>
+            <th rowspan="2">Показатель</th>
+            <th rowspan="2">Единица измерения</th>
+            <th colspan="3">Значения показателей</th>
+        </tr>
+        <tr>
+            {% for year in years %}
+            <th>{{ year }}</th>
+            {% endfor %}
+        </tr>
+        {% load custom_tags %}
+        {% for indicator, data in data_by_indicator.items %}
+        <tr>
+            <td>{{ indicator }}</td>
+            <td>{{ data.unit }}</td>
+            {% for year in years %}
+            <td>{{ data.values|get_item:year }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    {# Рисуем график #}
+    <figure class="highcharts-figure">
+        <div id="container"></div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const chart = Highcharts.chart('container', {
+                    colors: ['#32CD32', '#FF69B4'],
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Динамика числа браков и разводов'
+                    },
+                    subtitle: {
+                        text: 'Данные: <a target="_blank" ' +
+                            'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+                    },
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        layout: 'vertical'
+                    },
+                    xAxis: {
+                        categories: {{ years|safe }},
+                        labels: {
+                            x: -10
+                        }
+                    },
+                    yAxis: {
+                        allowDecimals: false,
+                        title: {
+                            text: 'Человек'
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.1,
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                crop: false,
+                                overflow: 'none'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Браки',
+                        data: {{ values1|safe }}                
+                    }, {
+                        name: 'Разводы',
+                        data: {{ values2|safe }}
+                    }],
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500
+                            },
+                            chartOptions: {
+                                legend: {
+                                    align: 'center',
+                                    verticalAlign: 'bottom',
+                                    layout: 'horizontal'
+                                },
+                                yAxis: {
+                                    labels: {
+                                        align: 'left',
+                                        x: 0,
+                                        y: -5
+                                    },
+                                    title: {
+                                        text: null
+                                    }
+                                },
+                                subtitle: {
+                                    text: null
+                                },
+                                credits: {
+                                    enabled: false
+                                }
+                            }
+                        }]
+                    }
+                });
+                document.getElementById('small').addEventListener('click', function () {
+                    chart.setSize(400);
+                });
+                document.getElementById('large').addEventListener('click', function () {
+                    chart.setSize(600);
+                });
+                document.getElementById('auto').addEventListener('click', function () {
+                    chart.setSize(null);
+                });
+            });
+        </script>
+        <p class="highcharts-description">
+            График динамики числа браков и разводов
+        </p>
+    </figure>
+    <div id="button-bar">
+        <button id="small">Small</button>
+        <button id="large">Large</button>
+        <button id="auto">Auto</button>
+    </div>
+</body>
+</html>
