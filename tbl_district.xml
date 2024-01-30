@@ -1,0 +1,1048 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="tbl_district.xsd" generated="2024-01-30T13:00:04">
+<tbl_district>
+<district>1</district>
+<name_district>Алтайский край</name_district>
+<level>1</level>
+</tbl_district>
+<tbl_district>
+<district>2</district>
+<name_district>г.Алейск</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>3</district>
+<name_district>г.Барнаул</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>4</district>
+<name_district>г.Белокуриха</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>5</district>
+<name_district>г.Бийск</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>6</district>
+<name_district>г.Заринск</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>7</district>
+<name_district>г.Змеиногорск</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>8</district>
+<name_district>г.Камень-на-Оби</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>9</district>
+<name_district>г.Новоалтайск</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>10</district>
+<name_district>г.Рубцовск</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>11</district>
+<name_district>г.Славгород</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>12</district>
+<name_district>г.Яровое</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>13</district>
+<name_district>Алейский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>14</district>
+<name_district>Алтайский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>15</district>
+<name_district>Баевский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>16</district>
+<name_district>Бийский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>17</district>
+<name_district>Благовещенский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>18</district>
+<name_district>Бурлинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>19</district>
+<name_district>Быстроистокский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>20</district>
+<name_district>Волчихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>21</district>
+<name_district>Егорьевский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>22</district>
+<name_district>Ельцовский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>23</district>
+<name_district>Завьяловский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>24</district>
+<name_district>Залесовский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>25</district>
+<name_district>Заринский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>26</district>
+<name_district>Змеиногорский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>27</district>
+<name_district>Зональный район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>28</district>
+<name_district>Калманский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>29</district>
+<name_district>Каменский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>30</district>
+<name_district>Ключевский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>31</district>
+<name_district>Косихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>32</district>
+<name_district>Красногорский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>33</district>
+<name_district>Краснощековский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>34</district>
+<name_district>Крутихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>35</district>
+<name_district>Кулундинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>36</district>
+<name_district>Курьинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>37</district>
+<name_district>Кытмановский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>38</district>
+<name_district>Локтевский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>39</district>
+<name_district>Мамонтовский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>40</district>
+<name_district>Михайловский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>41</district>
+<name_district>Немецкий район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>42</district>
+<name_district>Новичихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>43</district>
+<name_district>Павловский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>44</district>
+<name_district>Панкрушихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>45</district>
+<name_district>Первомайский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>46</district>
+<name_district>Петропавловский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>47</district>
+<name_district>Поспелихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>48</district>
+<name_district>Ребрихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>49</district>
+<name_district>Родинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>50</district>
+<name_district>Романовский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>51</district>
+<name_district>Рубцовский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>52</district>
+<name_district>Славгородский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>53</district>
+<name_district>Смоленский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>54</district>
+<name_district>Советский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>55</district>
+<name_district>Солонешенский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>56</district>
+<name_district>Солтонский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>57</district>
+<name_district>Суетский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>58</district>
+<name_district>Табунский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>59</district>
+<name_district>Тальменский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>60</district>
+<name_district>Тогульский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>61</district>
+<name_district>Топчихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>62</district>
+<name_district>Третьяковский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>63</district>
+<name_district>Троицкий район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>64</district>
+<name_district>Тюменцевский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>65</district>
+<name_district>Угловский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>66</district>
+<name_district>Усть-Калманский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>67</district>
+<name_district>Усть-Пристанский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>68</district>
+<name_district>Хабарский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>69</district>
+<name_district>Целинный район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>70</district>
+<name_district>Чарышский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>71</district>
+<name_district>Шелаболихинский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>72</district>
+<name_district>Шипуновский район</name_district>
+<region>1</region>
+<level>2</level>
+</tbl_district>
+<tbl_district>
+<district>73</district>
+<name_district>Россия</name_district>
+<region>1</region>
+</tbl_district>
+<tbl_district>
+<district>74</district>
+<name_district>СФО</name_district>
+<region>1</region>
+</tbl_district>
+<tbl_district>
+<district>75</district>
+<name_district>Республика Алтай</name_district>
+</tbl_district>
+<tbl_district>
+<district>76</district>
+<name_district>Республика Саха (Якутия)</name_district>
+</tbl_district>
+<tbl_district>
+<district>77</district>
+<name_district>Республика Тыва</name_district>
+</tbl_district>
+<tbl_district>
+<district>78</district>
+<name_district>Забайкальский край </name_district>
+</tbl_district>
+<tbl_district>
+<district>79</district>
+<name_district>Республика Бурятия</name_district>
+</tbl_district>
+<tbl_district>
+<district>80</district>
+<name_district>Республика Хакасия</name_district>
+</tbl_district>
+<tbl_district>
+<district>81</district>
+<name_district>Иркутская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>82</district>
+<name_district>Хабаровский край</name_district>
+</tbl_district>
+<tbl_district>
+<district>83</district>
+<name_district>Сахалинская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>84</district>
+<name_district>Амурская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>85</district>
+<name_district>Ивановская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>86</district>
+<name_district>Республика Коми</name_district>
+</tbl_district>
+<tbl_district>
+<district>87</district>
+<name_district>Республика Дагестан</name_district>
+</tbl_district>
+<tbl_district>
+<district>88</district>
+<name_district>Волгоградская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>89</district>
+<name_district>Еврейская автономная область</name_district>
+</tbl_district>
+<tbl_district>
+<district>90</district>
+<name_district>Удмуртская Республика </name_district>
+</tbl_district>
+<tbl_district>
+<district>91</district>
+<name_district>Орловская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>92</district>
+<name_district>Республика Карелией</name_district>
+</tbl_district>
+<tbl_district>
+<district>93</district>
+<name_district>Вологодская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>94</district>
+<name_district>Кабардино-Балкарская Республика </name_district>
+</tbl_district>
+<tbl_district>
+<district>95</district>
+<name_district>Республика Марий Эл</name_district>
+</tbl_district>
+<tbl_district>
+<district>96</district>
+<name_district>Курганская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>97</district>
+<name_district>Астраханская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>98</district>
+<name_district>Магаданская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>99</district>
+<name_district>Ненецкий автономный округ</name_district>
+</tbl_district>
+<tbl_district>
+<district>100</district>
+<name_district>Карачаево-Черкесская Республика </name_district>
+</tbl_district>
+<tbl_district>
+<district>101</district>
+<name_district>Кировская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>102</district>
+<name_district>Тамбовская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>103</district>
+<name_district>Республика Мордовия</name_district>
+</tbl_district>
+<tbl_district>
+<district>104</district>
+<name_district>Приморский край  </name_district>
+</tbl_district>
+<tbl_district>
+<district>105</district>
+<name_district>Смоленская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>106</district>
+<name_district>Архангельская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>107</district>
+<name_district>Ставропольский край </name_district>
+</tbl_district>
+<tbl_district>
+<district>108</district>
+<name_district>Брянская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>109</district>
+<name_district>Республика Северная Осетия</name_district>
+</tbl_district>
+<tbl_district>
+<district>110</district>
+<name_district>Чувашская Республика </name_district>
+</tbl_district>
+<tbl_district>
+<district>111</district>
+<name_district>Курская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>112</district>
+<name_district>Тверская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>113</district>
+<name_district>Республика Ингушетия</name_district>
+</tbl_district>
+<tbl_district>
+<district>114</district>
+<name_district>Новгородская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>115</district>
+<name_district>Чеченская Республика </name_district>
+</tbl_district>
+<tbl_district>
+<district>116</district>
+<name_district>Псковская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>117</district>
+<name_district>Костромская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>118</district>
+<name_district>Ярославская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>119</district>
+<name_district>Тульская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>120</district>
+<name_district>Ульяновская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>121</district>
+<name_district>Пензенская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>122</district>
+<name_district>Пермский край</name_district>
+</tbl_district>
+<tbl_district>
+<district>123</district>
+<name_district>Липецкая область</name_district>
+</tbl_district>
+<tbl_district>
+<district>124</district>
+<name_district>Чукотский автономный округ</name_district>
+</tbl_district>
+<tbl_district>
+<district>125</district>
+<name_district>Владимирская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>126</district>
+<name_district>Республика Башкортостан</name_district>
+</tbl_district>
+<tbl_district>
+<district>127</district>
+<name_district>Рязанская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>128</district>
+<name_district>Саратовская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>129</district>
+<name_district>Республика Татарстан</name_district>
+</tbl_district>
+<tbl_district>
+<district>130</district>
+<name_district>Белгородская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>131</district>
+<name_district>Республика Адыгея</name_district>
+</tbl_district>
+<tbl_district>
+<district>132</district>
+<name_district>Воронежская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>133</district>
+<name_district>Калужская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>134</district>
+<name_district>Челябинская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>135</district>
+<name_district>Нижегородская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>136</district>
+<name_district>Самарская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>137</district>
+<name_district>Ростовская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>138</district>
+<name_district>Свердловская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>139</district>
+<name_district>Мурманская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>140</district>
+<name_district>Калининградская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>141</district>
+<name_district>Омская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>142</district>
+<name_district>Красноярский край </name_district>
+</tbl_district>
+<tbl_district>
+<district>143</district>
+<name_district>Ленинградская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>144</district>
+<name_district>Кемеровская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>145</district>
+<name_district>Томская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>146</district>
+<name_district>г.Москва</name_district>
+</tbl_district>
+<tbl_district>
+<district>147</district>
+<name_district>Тюменская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>148</district>
+<name_district>г.Санкт-Петербург</name_district>
+</tbl_district>
+<tbl_district>
+<district>149</district>
+<name_district>Краснодарский край </name_district>
+</tbl_district>
+<tbl_district>
+<district>150</district>
+<name_district>Московская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>151</district>
+<name_district>Новосибирская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>152</district>
+<name_district>Республика Калмыкия</name_district>
+</tbl_district>
+<tbl_district>
+<district>153</district>
+<name_district>Оренбургская область</name_district>
+</tbl_district>
+<tbl_district>
+<district>154</district>
+<name_district>Камчатский край </name_district>
+</tbl_district>
+<tbl_district>
+<district>155</district>
+<name_district>Республика Крым</name_district>
+</tbl_district>
+<tbl_district>
+<district>156</district>
+<name_district>г. Севастополь</name_district>
+</tbl_district>
+<tbl_district>
+<district>157</district>
+<name_district>Азербайджан</name_district>
+</tbl_district>
+<tbl_district>
+<district>158</district>
+<name_district>Армения</name_district>
+</tbl_district>
+<tbl_district>
+<district>159</district>
+<name_district>Беларусь</name_district>
+</tbl_district>
+<tbl_district>
+<district>160</district>
+<name_district>Грузия</name_district>
+</tbl_district>
+<tbl_district>
+<district>161</district>
+<name_district>Казахстан</name_district>
+</tbl_district>
+<tbl_district>
+<district>162</district>
+<name_district>Киргизия</name_district>
+</tbl_district>
+<tbl_district>
+<district>163</district>
+<name_district>Молдова</name_district>
+</tbl_district>
+<tbl_district>
+<district>164</district>
+<name_district>Таджикистан</name_district>
+</tbl_district>
+<tbl_district>
+<district>165</district>
+<name_district>Туркмения</name_district>
+</tbl_district>
+<tbl_district>
+<district>166</district>
+<name_district>Узбекистан</name_district>
+</tbl_district>
+<tbl_district>
+<district>167</district>
+<name_district>Украина</name_district>
+</tbl_district>
+<tbl_district>
+<district>168</district>
+<name_district>Германия</name_district>
+</tbl_district>
+<tbl_district>
+<district>169</district>
+<name_district>Греция</name_district>
+</tbl_district>
+<tbl_district>
+<district>170</district>
+<name_district>Абхазия</name_district>
+</tbl_district>
+<tbl_district>
+<district>171</district>
+<name_district>Израиль</name_district>
+</tbl_district>
+<tbl_district>
+<district>172</district>
+<name_district>Канада</name_district>
+</tbl_district>
+<tbl_district>
+<district>173</district>
+<name_district>Китай</name_district>
+</tbl_district>
+<tbl_district>
+<district>174</district>
+<name_district>Латвия</name_district>
+</tbl_district>
+<tbl_district>
+<district>175</district>
+<name_district>Литва</name_district>
+</tbl_district>
+<tbl_district>
+<district>176</district>
+<name_district>США</name_district>
+</tbl_district>
+<tbl_district>
+<district>177</district>
+<name_district>Финляндия</name_district>
+</tbl_district>
+<tbl_district>
+<district>178</district>
+<name_district>Эстония</name_district>
+</tbl_district>
+<tbl_district>
+<district>179</district>
+<name_district>Вьетнам</name_district>
+</tbl_district>
+<tbl_district>
+<district>180</district>
+<name_district>Афганистан</name_district>
+</tbl_district>
+<tbl_district>
+<district>181</district>
+<name_district>г.Севастополь</name_district>
+</tbl_district>
+<tbl_district>
+<district>182</district>
+<name_district>ЗАТО Сибирский</name_district>
+</tbl_district>
+<tbl_district>
+<district>183</district>
+<name_district>Польша</name_district>
+</tbl_district>
+<tbl_district>
+<district>184</district>
+<name_district>Сирия</name_district>
+</tbl_district>
+<tbl_district>
+<district>185</district>
+<name_district>Турция</name_district>
+</tbl_district>
+<tbl_district>
+<district>186</district>
+<name_district>Австралия</name_district>
+</tbl_district>
+<tbl_district>
+<district>187</district>
+<name_district>Австрия</name_district>
+</tbl_district>
+<tbl_district>
+<district>188</district>
+<name_district>Алжир</name_district>
+</tbl_district>
+<tbl_district>
+<district>189</district>
+<name_district>Андорра</name_district>
+</tbl_district>
+<tbl_district>
+<district>190</district>
+<name_district>Аргентина</name_district>
+</tbl_district>
+<tbl_district>
+<district>191</district>
+<name_district>Болгария</name_district>
+</tbl_district>
+<tbl_district>
+<district>192</district>
+<name_district>Бразилия</name_district>
+</tbl_district>
+<tbl_district>
+<district>193</district>
+<name_district>Британская территория в Индийском океане</name_district>
+</tbl_district>
+<tbl_district>
+<district>194</district>
+<name_district>Великобритания </name_district>
+</tbl_district>
+<tbl_district>
+<district>195</district>
+<name_district>Виргинские острова </name_district>
+</tbl_district>
+<tbl_district>
+<district>196</district>
+<name_district>Египет</name_district>
+</tbl_district>
+<tbl_district>
+<district>197</district>
+<name_district>Западная Сахара</name_district>
+</tbl_district>
+<tbl_district>
+<district>198</district>
+<name_district>Зимбабве</name_district>
+</tbl_district>
+<tbl_district>
+<district>199</district>
+<name_district>Индия</name_district>
+</tbl_district>
+<tbl_district>
+<district>200</district>
+<name_district>Индонезия</name_district>
+</tbl_district>
+<tbl_district>
+<district>201</district>
+<name_district>Иран</name_district>
+</tbl_district>
+<tbl_district>
+<district>202</district>
+<name_district>Испания</name_district>
+</tbl_district>
+<tbl_district>
+<district>203</district>
+<name_district>Италия</name_district>
+</tbl_district>
+<tbl_district>
+<district>204</district>
+<name_district>Камерун</name_district>
+</tbl_district>
+<tbl_district>
+<district>205</district>
+<name_district>Корея</name_district>
+</tbl_district>
+<tbl_district>
+<district>206</district>
+<name_district>Кот д&apos;Ивуар</name_district>
+</tbl_district>
+<tbl_district>
+<district>207</district>
+<name_district>Куба</name_district>
+</tbl_district>
+<tbl_district>
+<district>208</district>
+<name_district>Лаос</name_district>
+</tbl_district>
+<tbl_district>
+<district>209</district>
+<name_district>Ливан</name_district>
+</tbl_district>
+<tbl_district>
+<district>210</district>
+<name_district>Люксембург</name_district>
+</tbl_district>
+<tbl_district>
+<district>211</district>
+<name_district>Марокко</name_district>
+</tbl_district>
+<tbl_district>
+<district>212</district>
+<name_district>Монголия</name_district>
+</tbl_district>
+<tbl_district>
+<district>213</district>
+<name_district>Нигерия</name_district>
+</tbl_district>
+<tbl_district>
+<district>214</district>
+<name_district>Перу</name_district>
+</tbl_district>
+<tbl_district>
+<district>215</district>
+<name_district>Сербия</name_district>
+</tbl_district>
+<tbl_district>
+<district>216</district>
+<name_district>Сингапур</name_district>
+</tbl_district>
+<tbl_district>
+<district>217</district>
+<name_district>Сомали</name_district>
+</tbl_district>
+<tbl_district>
+<district>218</district>
+<name_district>Таиланд</name_district>
+</tbl_district>
+<tbl_district>
+<district>219</district>
+<name_district>Франция</name_district>
+</tbl_district>
+<tbl_district>
+<district>220</district>
+<name_district>Швеция</name_district>
+</tbl_district>
+<tbl_district>
+<district>221</district>
+<name_district>Шри-Ланка</name_district>
+</tbl_district>
+<tbl_district>
+<district>222</district>
+<name_district>Эквадор</name_district>
+</tbl_district>
+<tbl_district>
+<district>223</district>
+<name_district>Эфиопия</name_district>
+</tbl_district>
+<tbl_district>
+<district>224</district>
+<name_district>Япония</name_district>
+</tbl_district>
+<tbl_district>
+<district>999</district>
+<name_district>Другие страны</name_district>
+</tbl_district>
+</dataroot>
