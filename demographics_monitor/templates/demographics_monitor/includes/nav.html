@@ -1,0 +1,5 @@
+<nav>
+    {% for item in section %}
+        <a href="{% url item.url_name %}">{{ item.title }}</a> |
+    {% endfor%}
+</nav>
