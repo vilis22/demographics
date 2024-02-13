@@ -1,16 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Браки и разводы</title>
-    {% load static %}
     {# Подключение CSS #}
-    <link rel="stylesheet" href="{% static 'css/highcharts.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'demographics_monitor/css/highcharts.css'%}" type="text/css">
     {# Подключение JavaScript #}
-    <script src="{% static 'js/highcharts.js' %}"></script>
-    <script src="{% static 'js/exporting.js' %}"></script>
-    <script src="{% static 'js/export-data.js' %}"></script>
-    <script src="{% static 'js/accessibility.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/highcharts.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/exporting.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/export-data.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/accessibility.js' %}"></script>
 </head>
 <body>
 <h2>Браки и разводы</h2>

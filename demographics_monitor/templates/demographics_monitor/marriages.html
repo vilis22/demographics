@@ -2,9 +2,133 @@
 
 {% block content %}
 {% include 'demographics_monitor/includes/nav.html' %}
-<h3>Это страница блока Браки и разводы</h3>
-Здесь в строчку будет два списка, где пользователю<br>
-предлагается выбрать из первого списка нужный раздел,<br>
-а из второго списка нужный элемент раздела, в зависимости <br>
-от выбранного раздела
+<h2>Основные показатели брачности и разводимости</h2>
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Показать">
+</form>
+<br>
+<div>
+    <table class="styled-table">
+        <caption>Таблица 1. Основные показатели брачности и разводимости населения</caption>
+        <tr>
+            <th class="special-row" rowspan="2">Показатель</th>
+            <th class="special-row" rowspan="2">Единица измерения</th>
+            <th class="special-row" colspan="{{ years|length }}">Значения показателей</th>
+        </tr>
+        <tr>
+            {% for year in years %}
+            <th>{{ year }}</th>
+            {% endfor %}
+        </tr>
+
+        {% load custom_tags %}
+        {% for indicator, data in data_by_indicator.items %}
+        <tr>
+            <td>{{ indicator }}</td>
+            <td>{{ data.unit }}</td>
+            {% for year in years %}
+            <td>{{ data.values|get_item:year }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% comment %} Рисуем график {% endcomment %}
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Динамика числа браков, разводов и индекса разводимости',
+                align: 'left'
+            },
+            subtitle: {
+                text:
+                    'Source: <a target="_blank" ' +
+                    'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+                align: 'left'
+            },
+            xAxis: [{
+                categories: {{ years|safe }},
+                crosshair: true
+            }],
+            yAxis: [{
+                title: {
+                    text: '1000 единиц',
+                    style: {
+                        color: 'black'
+                    }
+                },
+                labels: {
+                    style: {
+                        color: 'black'
+                    }
+                },
+            }, {
+                min: 0,
+                labels: {
+                    style: {
+                        color: 'black'
+                    }
+                },
+                title: {
+                    text: 'разводов на 100 бр.',
+                    style: {
+                        color: 'black'
+                    }
+                },
+                opposite: true
+            }],
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                align: 'center',
+                verticalAlign: 'bottom',
+                floating: false,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || 'rgba(255,255,255,0.25)'
+            },
+            series: [{
+                name: 'Браки',
+                type: 'column',
+                color: '#008000',
+                data: {{ values1|safe }},
+                tooltip: {
+                    valueSuffix: ' единиц'
+                }
+            }, {
+                name: 'Разводы',
+                type: 'column',
+                color: '#4169E1',
+                data: {{ values2|safe }},
+                tooltip: {
+                    valueSuffix: ' единиц'
+                }
+            }, {
+                name: 'Индекс разводимости',
+                type: 'spline',
+                yAxis: 1,
+                color: '#FF0000',
+                data: {{ values3|safe }},
+                tooltip: {
+                    valueSuffix: ' разводов на 100 бр.'
+                }
+            }]
+        });
+    </script>
+    <p class="highcharts-description">
+        Диаграмма, представляющая собой комбинацию столбца и линейного графика
+        с использованием нескольких осей y. Использование нескольких осей позволяет
+        визуализировать данные в разных диапазонах.
+    </p>
+</figure>
+
 {% endblock %}

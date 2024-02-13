@@ -3,18 +3,35 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link type="text/css" href="{% static 'demographics_monitor/css/styles.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'demographics_monitor/css/logos-and-images.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'demographics_monitor/css/header-style.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'demographics_monitor/css/nav-style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'demographics_monitor/css/table-style.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'demographics_monitor/css/highcharts.css'%}" type="text/css">
+    <script src="{% static 'demographics_monitor/js/highcharts.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/exporting.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/export-data.js' %}"></script>
+    <script src="{% static 'demographics_monitor/js/accessibility.js' %}"></script>
 </head>
 <body>
-<ul id="menu">
+<div class="container">
+    <img class="logo" src="{% static 'demographics_monitor/images/logo-sc.png' %}" alt="Ситуацинный центр">
+    <h3>Ситуационный центр<br>Губернатора Алтайского края</h3>
+    <h1>Система комплексного полимасштабного мониторинга<br>демографического развития Алтайского края</h1>
+</div>
+
+<div class="topnav">
+    <a class="active" href="{% url 'home' %}">Демографический мониторинг</a>
     {% for item in menu %}
-    <li>
-        <a href="{% url item.url_name %}">{{ item.title }}</a>
-    </li>
+    <a href="{% url item.url_name %}">{{ item.title }}</a>
     {% endfor%}
-</ul>
-<h1>Система комплексного полимасштабного мониторинга <br> демографического развития Алтайского края</h1>
+    <div class="topnav-right">
+        <a href="{% url 'login' %}">Войти</a>
+    </div>
+</div>
+<br>
 {% block content %} {% endblock %}
 </body>
 </html>
