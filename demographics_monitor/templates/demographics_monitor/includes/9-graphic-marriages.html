@@ -1,0 +1,65 @@
+<script>
+    Highcharts.chart('container9', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Все население',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: 'на 1 000 человек населения',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' на 1 000 человек населения'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Коэффициент брачности',
+                data: {{ values14|safe }},
+                color: '#2c638c'
+            },
+            {
+                name: 'Коэффициент разводимости',
+                data: {{ values15|safe }},
+                color: '#95362a'
+            }
+        ]
+    });
+</script>

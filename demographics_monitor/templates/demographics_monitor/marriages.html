@@ -1,8 +1,11 @@
+<!--<div style="background-color: yellow;">-->
 {% extends 'base.html' %}
 
 {% block content %}
 {% include 'demographics_monitor/includes/nav.html' %}
-<h2>Основные показатели брачности и разводимости</h2>
+<div class="caption-style">
+    <h2>Основные показатели брачности и разводимости</h2>
+</div>
 
 <form action="" method="post">
     {% csrf_token %}
@@ -10,125 +13,143 @@
     <input type="submit" value="Показать">
 </form>
 <br>
-<div>
-    <table class="styled-table">
-        <caption>Таблица 1. Основные показатели брачности и разводимости населения</caption>
+<div style="overflow-x:auto;">
+    <table class="table-style">
+        <caption class="caption-style">
+            <h3>Таблица 1 "Основные показатели брачности и разводимости населения"</h3>
+        </caption>
         <tr>
-            <th class="special-row" rowspan="2">Показатель</th>
-            <th class="special-row" rowspan="2">Единица измерения</th>
-            <th class="special-row" colspan="{{ years|length }}">Значения показателей</th>
+            <th class="th-style" rowspan="2">Показатель</th>
+            <th class="th-style" rowspan="2">Единица измерения</th>
+            <th class="th-style" colspan="{{ years|length }}">Значения показателей</th>
         </tr>
         <tr>
             {% for year in years %}
-            <th>{{ year }}</th>
+            <th class="th-style">{{ year }}</th>
             {% endfor %}
         </tr>
 
         {% load custom_tags %}
         {% for indicator, data in data_by_indicator.items %}
-        <tr>
-            <td>{{ indicator }}</td>
-            <td>{{ data.unit }}</td>
+        <tr class="tr-style">
+            <td class="td-left-style">{{ indicator }}</td>
+            <td class="td-center-style">{{ data.unit }}</td>
             {% for year in years %}
-            <td>{{ data.values|get_item:year }}</td>
+            <td class="td-right-style">{{ data.values|get_item:year }}</td>
             {% endfor %}
         </tr>
         {% endfor %}
     </table>
 </div>
-
-{% comment %} Рисуем график {% endcomment %}
+<br>
+<br>
+<br>
+<hr class="hr-horizontal-gradient">
+<div class="caption-style">
+    <h3>Рис. 1 "Динамика числа браков, разводов и индекса разводимости"</h3>
+</div>
+<div class="chart-container">
+    {% comment %} Городское население {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container1"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/1-graphic-marriages.html' %}
+    </div>
+    {% comment %} Сельское население {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container2"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/2-graphic-marriages.html' %}
+    </div>
+</div>
+{% comment %} Все население {% endcomment %}
 <figure class="highcharts-figure">
-    <div id="container"></div>
-    <script>
-        Highcharts.chart('container', {
-            chart: {
-                zoomType: 'xy'
-            },
-            title: {
-                text: 'Динамика числа браков, разводов и индекса разводимости',
-                align: 'left'
-            },
-            subtitle: {
-                text:
-                    'Source: <a target="_blank" ' +
-                    'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
-                align: 'left'
-            },
-            xAxis: [{
-                categories: {{ years|safe }},
-                crosshair: true
-            }],
-            yAxis: [{
-                title: {
-                    text: '1000 единиц',
-                    style: {
-                        color: 'black'
-                    }
-                },
-                labels: {
-                    style: {
-                        color: 'black'
-                    }
-                },
-            }, {
-                min: 0,
-                labels: {
-                    style: {
-                        color: 'black'
-                    }
-                },
-                title: {
-                    text: 'разводов на 100 бр.',
-                    style: {
-                        color: 'black'
-                    }
-                },
-                opposite: true
-            }],
-            tooltip: {
-                shared: true
-            },
-            legend: {
-                align: 'center',
-                verticalAlign: 'bottom',
-                floating: false,
-                backgroundColor:
-                    Highcharts.defaultOptions.legend.backgroundColor || 'rgba(255,255,255,0.25)'
-            },
-            series: [{
-                name: 'Браки',
-                type: 'column',
-                color: '#008000',
-                data: {{ values1|safe }},
-                tooltip: {
-                    valueSuffix: ' единиц'
-                }
-            }, {
-                name: 'Разводы',
-                type: 'column',
-                color: '#4169E1',
-                data: {{ values2|safe }},
-                tooltip: {
-                    valueSuffix: ' единиц'
-                }
-            }, {
-                name: 'Индекс разводимости',
-                type: 'spline',
-                yAxis: 1,
-                color: '#FF0000',
-                data: {{ values3|safe }},
-                tooltip: {
-                    valueSuffix: ' разводов на 100 бр.'
-                }
-            }]
-        });
-    </script>
-    <p class="highcharts-description">
-        Диаграмма, представляющая собой комбинацию столбца и линейного графика
-        с использованием нескольких осей y. Использование нескольких осей позволяет
-        визуализировать данные в разных диапазонах.
-    </p>
+    <div id="container3"></div>
 </figure>
+{% include 'demographics_monitor/includes/3-graphic-marriages.html' %}
+<br>
+<br>
+<br>
+<hr class="hr-horizontal-gradient">
+<div class="caption-style">
+    <h3>Рис. 2 "Динамика числа браков, разводов и индекса разводимости в разрезе территорий"</h3>
+</div>
+<div class="chart-container">
+    {% comment %} Браки {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container4"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/4-graphic-marriages.html' %}
+    </div>
+    {% comment %} Разводы {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container5"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/5-graphic-marriages.html' %}
+    </div>
+</div>
+{% comment %} Индекс разводимости {% endcomment %}
+<figure class="highcharts-figure">
+    <div id="container6"></div>
+</figure>
+    {% include 'demographics_monitor/includes/6-graphic-marriages.html' %}
+<br>
+<br>
+<br>
+<hr class="hr-horizontal-gradient">
+<div class="caption-style">
+    <h3>Рис. 3 "Динамика общих коэффициентов брачности и разводимости"</h3>
+</div>
+<div class="chart-container">
+    {% comment %} Городское население {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container7"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/7-graphic-marriages.html' %}
+    </div>
+    {% comment %} Сельское население {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container8"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/8-graphic-marriages.html' %}
+    </div>
+</div>
+{% comment %} Все население {% endcomment %}
+<figure class="highcharts-figure">
+    <div id="container9"></div>
+</figure>
+{% include 'demographics_monitor/includes/9-graphic-marriages.html' %}
+<br>
+<br>
+<br>
+<hr class="hr-horizontal-gradient">
+<div class="caption-style">
+    <h3>Рис. 4 "Динамика общих коэффициентов брачности и разводимости в разрезе территорий"</h3>
+</div>
+<div class="chart-container">
+    {% comment %} Коэффициент брачности {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container10"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/10-graphic-marriages.html' %}
+    </div>
+    {% comment %} Коэффициент разводимости {% endcomment %}
+    <div class="chart">
+        <figure class="highcharts-figure">
+            <div id="container11"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/11-graphic-marriages.html' %}
+    </div>
+</div>
+
+
+
 
 {% endblock %}

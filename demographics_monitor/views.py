@@ -68,6 +68,7 @@ section = [
 
 
 def index(request):
+    """Это стартовая страница"""
     data = {
         'title': 'Демографический мониторинг',
         'menu': menu,
@@ -121,8 +122,9 @@ def migration(request):
 
 
 def marriages(request):
-    """Обрабатывает HTTP-запрос и возвращает представление HTML."""
-    years = [2020, 2021, 2022]
+    """Браки и разводы"""
+    years = list(range(2018, 2023))
+    """ years = [2020, 2021, 2022] """
     if request.method == "POST":
         form = PeriodSelectionForm(request.POST)
         if form.is_valid():
@@ -159,6 +161,19 @@ def marriages(request):
     values1 = [data_by_indicator['Число браков']['values'][y] if data_by_indicator['Число браков']['values'][y] != '' else '' for y in years]
     values2 = [data_by_indicator['Число разводов']['values'][y] if data_by_indicator['Число разводов']['values'][y] != '' else '' for y in years]
     values3 = [data_by_indicator['Индекс разводимости']['values'][y] if data_by_indicator['Индекс разводимости']['values'][y] != '' else '' for y in years]
+    values4 = [data_by_indicator['Число браков в городской местности']['values'][y] if data_by_indicator['Число браков в городской местности']['values'][y] != '' else '' for y in years]
+    values5 = [data_by_indicator['Число разводов в городской местности']['values'][y] if data_by_indicator['Число разводов в городской местности']['values'][y] != '' else '' for y in years]
+    values6 = [data_by_indicator['Индекс разводимости в городской местности']['values'][y] if data_by_indicator['Индекс разводимости в городской местности']['values'][y] != '' else '' for y in years]
+    values7 = [data_by_indicator['Число браков в сельской местности']['values'][y] if data_by_indicator['Число браков в сельской местности']['values'][y] != '' else '' for y in years]
+    values8 = [data_by_indicator['Число разводов в сельской местности']['values'][y] if data_by_indicator['Число разводов в сельской местности']['values'][y] != '' else '' for y in years]
+    values9 = [data_by_indicator['Индекс разводимости в сельской местности']['values'][y] if data_by_indicator['Индекс разводимости в сельской местности']['values'][y] != '' else '' for y in years]
+    values10 = [data_by_indicator['Общий коэффициент брачности в городской местности']['values'][y] if data_by_indicator['Общий коэффициент брачности в городской местности']['values'][y] != '' else '' for y in years]
+    values11 = [data_by_indicator['Общий К. разводимости в городской местности']['values'][y] if data_by_indicator['Общий К. разводимости в городской местности']['values'][y] != '' else '' for y in years]
+    values12 = [data_by_indicator['Общий коэффициент брачности в сельской местности']['values'][y] if data_by_indicator['Общий коэффициент брачности в сельской местности']['values'][y] != '' else '' for y in years]
+    values13 = [data_by_indicator['Общий К. разводимости в сельской местности']['values'][y] if data_by_indicator['Общий К. разводимости в сельской местности']['values'][y] != '' else '' for y in years]
+    values14 = [data_by_indicator['Общий коэффициент брачности']['values'][y] if data_by_indicator['Общий коэффициент брачности']['values'][y] != '' else '' for y in years]
+    values15 = [data_by_indicator['Общий коэффициент разводимости']['values'][y] if data_by_indicator['Общий коэффициент разводимости']['values'][y] != '' else '' for y in years]
+
     context_data = {
         'title': 'Браки и разводы',
         'menu': menu,
@@ -169,14 +184,26 @@ def marriages(request):
         'values1': values1,
         'values2': values2,
         'values3': values3,
+        'values4': values4,
+        'values5': values5,
+        'values6': values6,
+        'values7': values7,
+        'values8': values8,
+        'values9': values9,
+        'values10': values10,
+        'values11': values11,
+        'values12': values12,
+        'values13': values13,
+        'values14': values14,
+        'values15': values15,
     }
     return render(request, "demographics_monitor/marriages.html", context=context_data)
 
 
-
 def test_page(request):
     """Обрабатывает HTTP-запрос и возвращает представление HTML."""
-    years = [2020, 2021, 2022]
+    years = list(range(2018, 2023))
+    """ years = [2020, 2021, 2022] """
     if request.method == "POST":
         form = PeriodSelectionForm(request.POST)
         if form.is_valid():

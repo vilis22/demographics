@@ -1,0 +1,71 @@
+<script>
+    Highcharts.chart('container5', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Разводы',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: '1 000 единиц',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' единиц'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Городское население',
+                data: {{ values5|safe }},
+                color: '#e74c3c'
+            },
+            {
+                name: 'Сельское население',
+                data: {{ values8|safe }},
+                color: '#f98c79'
+            },
+            {
+                name: 'Все население',
+                type: 'line',
+                data: {{ values2|safe }},
+                color: '#95362a'
+            }
+        ]
+    });
+</script>

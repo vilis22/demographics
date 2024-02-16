@@ -1,0 +1,96 @@
+<script>
+    Highcharts.chart('container3', {
+            chart: {
+                zoomType: 'xy'
+            },
+            title: {
+                text: 'Все население',
+                align: 'center'
+            },
+            subtitle: {
+                text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+                align: 'left',
+                style: {
+                        color: 'black'
+                    }
+            },
+            xAxis: [{
+                labels: {
+                    style: {
+                        color: 'black'
+                    }
+                },
+                categories: {{ years|safe }},
+                crosshair: true
+            }],
+            yAxis: [{
+                title: {
+                    text: '1 000 единиц',
+                    style: {
+                        color: 'black'
+                    }
+                },
+                labels: {
+                    style: {
+                        color: 'black'
+                    }
+                },
+            }, {
+                min: 0,
+                labels: {
+                    style: {
+                        color: 'black'
+                    }
+                },
+                title: {
+                    text: 'разводов на 100 бр.',
+                    style: {
+                        color: 'black'
+                    }
+                },
+                opposite: true
+            }],
+            tooltip: {
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.05,
+                    borderWidth: 0
+                }
+            },
+            legend: {
+                align: 'center',
+                verticalAlign: 'bottom',
+                floating: false,
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || 'rgba(255,255,255,0.25)'
+            },
+            series: [{
+                name: 'Браки',
+                type: 'column',
+                color: '#2c638c',
+                data: {{ values1|safe }},
+                tooltip: {
+                    valueSuffix: ' единиц'
+                }
+            }, {
+                name: 'Разводы',
+                type: 'column',
+                color: '#95362a',
+                data: {{ values2|safe }},
+                tooltip: {
+                    valueSuffix: ' единиц'
+                }
+            }, {
+                name: 'Индекс разводимости',
+                type: 'spline',
+                yAxis: 1,
+                color: '#95362a',
+                data: {{ values3|safe }},
+                tooltip: {
+                    valueSuffix: ' разводов на 100 бр.'
+                }
+            }]
+        });
+</script>

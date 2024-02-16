@@ -1,0 +1,71 @@
+<script>
+    Highcharts.chart('container4', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Браки',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: '1 000 единиц',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' единиц'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Городское население',
+                data: {{ values4|safe }},
+                color: '#3498db'
+            },
+            {
+                name: 'Сельское население',
+                data: {{ values7|safe }},
+                color: '#89b9e7'
+            },
+            {
+                name: 'Все население',
+                type: 'line',
+                data: {{ values1|safe }},
+                color: '#2c638c'
+            }
+        ]
+    });
+</script>

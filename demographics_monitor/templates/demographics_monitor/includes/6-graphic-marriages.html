@@ -1,0 +1,71 @@
+<script>
+    Highcharts.chart('container6', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Индекс разводимости',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: 'разводов на 100 бр.',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' разводов на 100 бр.'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Городское население',
+                data: {{ values6|safe }},
+                color: '#e74c3c'
+            },
+            {
+                name: 'Сельское население',
+                data: {{ values9|safe }},
+                color: '#f98c79'
+            },
+            {
+                name: 'Все население',
+                type: 'line',
+                data: {{ values3|safe }},
+                color: '#95362a'
+            }
+        ]
+    });
+</script>
