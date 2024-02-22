@@ -4,7 +4,7 @@
             type: 'column'
         },
         title: {
-            text: 'Коэффициент брачности',
+            text: 'Общий коэффициент брачности',
             align: 'center'
         },
         subtitle: {
@@ -51,20 +51,20 @@
         },
         series: [
             {
-                name: 'Городское население',
+                name: 'Городская местность',
                 data: {{ values10|safe }},
-                color: '#3498db'
+                color: '#3e97ff'
             },
             {
-                name: 'Сельское население',
+                name: 'Сельская местность',
                 data: {{ values12|safe }},
-                color: '#89b9e7'
+                color: '#6eb1ff'
             },
             {
-                name: 'Все население',
+                name: 'Алтайский край',
                 type: 'line',
                 data: {{ values14|safe }},
-                color: '#2c638c'
+                color: '#0e7dff'
             }
         ]
     });

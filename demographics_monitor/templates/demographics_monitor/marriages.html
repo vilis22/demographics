@@ -1,155 +1,231 @@
-<!--<div style="background-color: yellow;">-->
 {% extends 'base.html' %}
-
 {% block content %}
 {% include 'demographics_monitor/includes/nav.html' %}
-<div class="caption-style">
-    <h2>Основные показатели брачности и разводимости</h2>
+
+<div id="navbar">
+    <header class="header2">
+        <div class="container2">
+            <div class="title">
+                Основные показатели брачности и разводимости с {{ years|first }} по {{ years|last }} гг.
+            </div>
+        </div>
+    </header>
 </div>
 
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Показать">
-</form>
-<br>
-<div style="overflow-x:auto;">
-    <table class="table-style">
-        <caption class="caption-style">
-            <h3>Таблица 1 "Основные показатели брачности и разводимости населения"</h3>
-        </caption>
-        <tr>
-            <th class="th-style" rowspan="2">Показатель</th>
-            <th class="th-style" rowspan="2">Единица измерения</th>
-            <th class="th-style" colspan="{{ years|length }}">Значения показателей</th>
-        </tr>
-        <tr>
-            {% for year in years %}
-            <th class="th-style">{{ year }}</th>
-            {% endfor %}
-        </tr>
+<main class="main">
+    <div class="container-universal">
+        <form action="" method="post" class="period-selection-form">
+            {% csrf_token %}
+            <label for="start_date">Выберите период с</label>
+            {{ form.start_date }}
+            <label for="end_date">по</label>
+            {{ form.end_date }}
+            <input type="submit" value="Показать">
+        </form>
+    </div>    
+    <div class="container-universal">
+        <hr class="hr-horizontal-gradient">
+    </div>
 
-        {% load custom_tags %}
-        {% for indicator, data in data_by_indicator.items %}
-        <tr class="tr-style">
-            <td class="td-left-style">{{ indicator }}</td>
-            <td class="td-center-style">{{ data.unit }}</td>
-            {% for year in years %}
-            <td class="td-right-style">{{ data.values|get_item:year }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-<br>
-<br>
-<br>
-<hr class="hr-horizontal-gradient">
-<div class="caption-style">
-    <h3>Рис. 1 "Динамика числа браков, разводов и индекса разводимости"</h3>
-</div>
-<div class="chart-container">
-    {% comment %} Городское население {% endcomment %}
-    <div class="chart">
+
+    <div class="container-universal">
+        <div class="section-title">
+            Т а б л и ц а 1 - Основные показатели брачности и разводимости населения
+        </div>
+    </div>
+    <div class="container-universal">
+        <div style="overflow-x:auto;">
+            <table class="table-style">
+                <tr>
+                    <th class="th-style" rowspan="2">Показатель</th>
+                    <th class="th-style" rowspan="2">Единица измерения</th>
+                    <th class="th-style" colspan="{{ years|length }}">Значения показателей</th>
+                </tr>
+                <tr>
+                    {% for year in years %}
+                    <th class="th-style">{{ year }}</th>
+                    {% endfor %}
+                </tr>
+                {% load custom_tags %}
+                {% for indicator, data in data_by_indicator.items %}
+                <tr class="tr-style">
+                    <td class="td-left-style">{{ indicator }}</td>
+                    <td class="td-center-style">{{ data.unit }}</td>
+                    {% for year in years %}
+                    <td class="td-center-style">{{ data.values|get_item:year }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="container-universal">
+        <hr class="hr-horizontal-gradient">
+    </div>
+
+
+    <div class="container-universal">
+        <div class="section-title">
+            Р и с. 1 - Динамика числа браков, разводов и индекса разводимости
+        </div>
+    </div>
+    <div class="container-universal">
         <figure class="highcharts-figure">
             <div id="container1"></div>
         </figure>
         {% include 'demographics_monitor/includes/1-graphic-marriages.html' %}
-    </div>
-    {% comment %} Сельское население {% endcomment %}
-    <div class="chart">
         <figure class="highcharts-figure">
             <div id="container2"></div>
         </figure>
         {% include 'demographics_monitor/includes/2-graphic-marriages.html' %}
     </div>
-</div>
-{% comment %} Все население {% endcomment %}
-<figure class="highcharts-figure">
-    <div id="container3"></div>
-</figure>
-{% include 'demographics_monitor/includes/3-graphic-marriages.html' %}
-<br>
-<br>
-<br>
-<hr class="hr-horizontal-gradient">
-<div class="caption-style">
-    <h3>Рис. 2 "Динамика числа браков, разводов и индекса разводимости в разрезе территорий"</h3>
-</div>
-<div class="chart-container">
-    {% comment %} Браки {% endcomment %}
-    <div class="chart">
+    <div class="container-universal">
+        <figure class="highcharts-figure">
+            <div id="container3"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/3-graphic-marriages.html' %}
+    </div>
+    <div class="container-universal">
+        <hr class="hr-horizontal-gradient">
+    </div>
+
+
+    <div class="container-universal">
+        <div class="section-title">
+            Р и с. 2 - Динамика числа браков, разводов и индекса разводимости в разрезе территорий
+        </div>
+    </div>
+    <div class="container-universal">
         <figure class="highcharts-figure">
             <div id="container4"></div>
         </figure>
         {% include 'demographics_monitor/includes/4-graphic-marriages.html' %}
-    </div>
-    {% comment %} Разводы {% endcomment %}
-    <div class="chart">
         <figure class="highcharts-figure">
             <div id="container5"></div>
         </figure>
         {% include 'demographics_monitor/includes/5-graphic-marriages.html' %}
     </div>
-</div>
-{% comment %} Индекс разводимости {% endcomment %}
-<figure class="highcharts-figure">
-    <div id="container6"></div>
-</figure>
-    {% include 'demographics_monitor/includes/6-graphic-marriages.html' %}
-<br>
-<br>
-<br>
-<hr class="hr-horizontal-gradient">
-<div class="caption-style">
-    <h3>Рис. 3 "Динамика общих коэффициентов брачности и разводимости"</h3>
-</div>
-<div class="chart-container">
-    {% comment %} Городское население {% endcomment %}
-    <div class="chart">
+    <div class="container-universal">
+        <figure class="highcharts-figure">
+            <div id="container6"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/6-graphic-marriages.html' %}
+    </div>
+    <div class="container-universal">
+        <hr class="hr-horizontal-gradient">
+    </div>
+
+
+    <div class="container-universal">
+        <div class="section-title">
+            Р и с. 3 - Динамика общих коэффициентов брачности и разводимости
+        </div>
+    </div>
+    <div class="container-universal">
         <figure class="highcharts-figure">
             <div id="container7"></div>
         </figure>
         {% include 'demographics_monitor/includes/7-graphic-marriages.html' %}
-    </div>
-    {% comment %} Сельское население {% endcomment %}
-    <div class="chart">
         <figure class="highcharts-figure">
             <div id="container8"></div>
         </figure>
         {% include 'demographics_monitor/includes/8-graphic-marriages.html' %}
     </div>
-</div>
-{% comment %} Все население {% endcomment %}
-<figure class="highcharts-figure">
-    <div id="container9"></div>
-</figure>
-{% include 'demographics_monitor/includes/9-graphic-marriages.html' %}
-<br>
-<br>
-<br>
-<hr class="hr-horizontal-gradient">
-<div class="caption-style">
-    <h3>Рис. 4 "Динамика общих коэффициентов брачности и разводимости в разрезе территорий"</h3>
-</div>
-<div class="chart-container">
-    {% comment %} Коэффициент брачности {% endcomment %}
-    <div class="chart">
+    <div class="container-universal">
+        <figure class="highcharts-figure">
+            <div id="container9"></div>
+        </figure>
+        {% include 'demographics_monitor/includes/9-graphic-marriages.html' %}
+    </div>
+    <div class="container-universal">
+        <hr class="hr-horizontal-gradient">
+    </div>
+
+
+    <div class="container-universal">
+        <div class="section-title">
+            Р и с. 4 - Динамика общих коэффициентов брачности и разводимости в разрезе территорий с
+        </div>
+    </div>
+    <div class="container-universal">
         <figure class="highcharts-figure">
             <div id="container10"></div>
         </figure>
         {% include 'demographics_monitor/includes/10-graphic-marriages.html' %}
-    </div>
-    {% comment %} Коэффициент разводимости {% endcomment %}
-    <div class="chart">
         <figure class="highcharts-figure">
             <div id="container11"></div>
         </figure>
         {% include 'demographics_monitor/includes/11-graphic-marriages.html' %}
     </div>
-</div>
+    <div class="container-universal">
+        <hr class="hr-horizontal-gradient">
+    </div>
 
 
+    <div class="container-universal">
+        <div class="section-title">
+            Т а б л и ц а 2 - Рейтинг муниципальных образований Алтайского края на {{ years|last }} г.
+        </div>
+    </div>
+    <div class="container-universal">
+        <table class="table-style2">
+            <tr>
+                <th class="th-style">№<br>п/п</th>
+                <th class="th-style">Наименование <br> муниципального образования</th>
+                <th class="th-style">Общий<br>коэффициент брачности</th>
+            </tr>
+            {% for data in municipalities %}
+            <tr class={{ data.3 }}>
+                <td class="td-right-style2">{{ data.0 }}</td>
+                <td class="td-left-style2">{{ data.1 }}</td>
+                <td class="td-center-style2">{{ data.2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 
+        <table class="table-style2">
+            <tr>
+                <th class="th-style">№<br>п/п</th>
+                <th class="th-style">Наименование<br>муниципальногообразования</th>
+                <th class="th-style">Общий<br>коэффициент разводимости</th>
+            </tr>
+            {% for data in municipalities2 %}
+            <tr class={{ data.3 }}>
+                <td class="td-right-style2">{{ data.0 }}</td>
+                <td class="td-left-style2">{{ data.1 }}</td>
+                <td class="td-center-style2">{{ data.2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table class="table-style2">
+            <tr>
+                <th class="th-style">№<br>п/п</th>
+                <th class="th-style">Наименование<br>муниципального образования</th>
+                <th class="th-style">Индекс<br>разводимости</th>
+            </tr>
+            {% for data in municipalities3 %}
+            <tr class={{ data.3 }}>
+                <td class="td-right-style2">{{ data.0 }}</td>
+                <td class="td-left-style2">{{ data.1 }}</td>
+                <td class="td-center-style2">{{ data.2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</main>
+
+<script>
+window.onscroll = function() {myFunction()};
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+function myFunction() {
+    if (window.pageYOffset >= sticky) {
+        navbar.classList.add("sticky")
+    } else {
+        navbar.classList.remove("sticky");
+    }
+}
+</script>
 
 {% endblock %}

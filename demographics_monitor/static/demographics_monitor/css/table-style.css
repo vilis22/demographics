@@ -1,56 +1,182 @@
+/* Color Theme Swatches in Hex */
+.My-Color-Theme-1-hex { color: #73122C; }
+.My-Color-Theme-2-hex { color: #BFB30F; }
+.My-Color-Theme-3-hex { color: #BE3156; }
+.My-Color-Theme-4-hex { color: #1F98BF; }
+.My-Color-Theme-5-hex { color: #185C73; }
+
+/*Таблица 1*/
 .table-style {
     border-collapse: collapse;
     border-spacing: 0;
-    /* width: 100%; */
-    border: 1px solid silver;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
-.caption-style {
+.th-style {
     text-align: center;
-    color: rgb(51, 51, 51);
-    /* padding: 10px; */
-}
-
-.th-style{
-    text-align: center;
-    padding: 8px;
+    padding: 5px 15px 5px 15px;
+    font-weight: 400;
     color: white;
-    background-color: #2151a2;
-    font-weight: bold;
+    background-color: #3C3C42;
+    border-bottom: 1px solid white;
 }
 
-.td-left-style{
+.td-left-style {
     text-align: left;
-    padding: 8px;
+    padding: 5px;
 }
 
-.td-center-style{
+.td-center-style {
     text-align: center;
-    padding: 8px;
+    padding: 5px;
 }
 
-.td-right-style{
+.td-right-style {
     text-align: right;
-    padding: 8px;
+    padding: 5px;
 }
 
-.tr-style:nth-child(odd){background-color: silver}
-
-
-.chart-container {
-    display: flex;
-    justify-content: space-between;
+.tr-style:nth-child(even) {
+    background-color: #B8BACC;
 }
 
-.chart {
-    flex: 1;
+/*Таблица 2 - рейтинги*/
+.table-style2 {
+    border-collapse: collapse;
+    margin: 10px 15px 0 15px;
 }
 
-.hr-horizontal-gradient {
-	margin: 10px 0;
-	padding: 0;
-	height: 6px;
-	border: none;
-	background: linear-gradient(45deg, #333, #ddd);
+.td-left-style2{
+    border-bottom: 1px solid white;
+    text-align: left;
+    padding: 3px;
+}
+
+.td-center-style2{
+    border-bottom: 1px solid white;
+    text-align: center;
+    padding: 3px;
+}
+
+.td-right-style2{
+    border-bottom: 1px solid white;
+    text-align: right;
+    padding: 3px;
+}
+
+/*Общий коэффициент брачности*/
+.municipalities1 {
+    background-color: #FFFFFF;
+    color:black;
+    border: 2px solid #003778;
+}
+
+.municipalities2 {
+    background-color: #D6E9FF;
+    color:black;
+    border: 2px solid #003778;
+}
+
+.municipalities3 {
+    background-color: #99C9FF;
+    color:black;
+    border: 2px solid #003778;
+}
+
+.municipalities4 {
+    background-color: #64ACFF;
+    color:black;
+}
+
+.municipalities5 {
+    background-color: #3693FF;
+    color:black;
+}
+
+.municipalities6 {
+    background-color: #0E7DFF;
+    color:white;
+}
+
+.municipalities7 {
+    background-color: #0069E5;
+    color:white;
+}
+
+.municipalities8 {
+    background-color: #0059C3;
+    color: white;
+}
+
+.municipalities9 {
+    background-color: #004CA6;
+    color: white;
+}
+.municipalities10 {
+    background-color: #00418D;
+    color: white;
+}
+
+.municipalities11 {
+    background-color: #003778;
+    color: white;
+}
+
+/*Коэффициент разводимости и индекс разводимости*/
+.municipalities1-2 {
+    background-color: #FFFFFF;
+    color: black;
+    border: 2px solid #6C0820;
+}
+
+.municipalities2-2 {
+    background-color: #FBCBD7;
+    color: black;
+    border: 2px solid #6C0820;
+}
+
+.municipalities3-2 {
+    background-color: #F794AC;
+    color: black;
+    border: 2px solid #6C0820;
+}
+
+.municipalities4-2 {
+    background-color: #F46487;
+    color: black;
+}
+
+.municipalities5-2 {
+    background-color: #F13A67;
+    color:white;
+}
+
+.municipalities6-2 {
+    background-color: #EE164B;
+    color:white;
+}
+
+.municipalities7-2 {
+    background-color: #CE0F3E;
+    color:white;
+}
+
+.municipalities8-2 {
+    background-color: #AF0D35;
+    color:white;
+}
+
+.municipalities9-2 {
+    background-color: #950B2D;
+    color:white;
+}
+
+.municipalities10-2 {
+    background-color: #7F0926;
+    color:white;
+}
+
+.municipalities11-2 {
+    background-color: #6C0820;
+    color:white;
 }

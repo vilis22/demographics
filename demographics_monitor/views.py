@@ -1,9 +1,10 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
-from .models import DemographicStatistics
+from .models import DemographicStatistics, Territories
 from .forms import PeriodSelectionForm
 
 menu = [
+    {'title': "Демографический мониторинг", 'url_name': 'home'},
     {'title': "Концепция", 'url_name': 'concept'},
     {'title': "О платформе", 'url_name': 'platform'},
     {'title': "Новости", 'url_name': 'news'},
@@ -70,7 +71,7 @@ section = [
 def index(request):
     """Это стартовая страница"""
     data = {
-        'title': 'Демографический мониторинг',
+        'title': 'Демографический мониторинг Алтайского края',
         'menu': menu,
         'section': section,
     }
@@ -174,6 +175,68 @@ def marriages(request):
     values14 = [data_by_indicator['Общий коэффициент брачности']['values'][y] if data_by_indicator['Общий коэффициент брачности']['values'][y] != '' else '' for y in years]
     values15 = [data_by_indicator['Общий коэффициент разводимости']['values'][y] if data_by_indicator['Общий коэффициент разводимости']['values'][y] != '' else '' for y in years]
 
+    """ Сформируем список МО для 3х рейтингов """
+    list_id_territory = list(range(2, 73))
+    list_id_territory.append(182)
+    """ Общий коэффициент брачности """
+    municipalities = []
+    data_last_three_years = DemographicStatistics.objects.filter(
+        indicator_id=416,
+        territory_id__in=list_id_territory,
+        year=years[-1]
+    ).order_by('value')
+    value_first = data_last_three_years.first()  # наименьшее значение
+    value_first = float(value_first.value)
+    value_last = data_last_three_years.last()  # наибольшее значение
+    value_last = float(value_last.value)
+    step = (value_last - value_first) / 11
+    for index, data in enumerate(data_last_three_years):
+        territory = Territories.objects.get(pk=data.territory_id)
+        index += 1
+        value_float = round(float(data.value), 1)
+        color_index = min(int((value_float - value_first) / step) + 1, 11)
+        municipalities.append((index, territory.territory_name, value_float, f'municipalities{color_index}'))  # стиль
+
+    """ Общий коэффициент разводимости """
+    municipalities2 = []
+    data_last_three_years = DemographicStatistics.objects.filter(
+        indicator_id=419,
+        territory_id__in=list_id_territory,
+        year=years[-1]
+    ).order_by('-value')
+    value_first = data_last_three_years.first()  # наибольшее значение
+    value_first = float(value_first.value)
+    value_last = data_last_three_years.last()  # наименьшее значение
+    value_last = float(value_last.value)
+    step = (value_first - value_last) / 11
+    
+    for index, data in enumerate(data_last_three_years):
+        territory = Territories.objects.get(pk=data.territory_id)
+        index += 1
+        value_float = round(float(data.value), 1)
+        color_index = min(int((value_first - value_float) / step) + 1, 11)
+        municipalities2.append((index, territory.territory_name, value_float, f'municipalities{color_index}-2'))  # стиль
+
+    """ Индекс разводимости """
+    municipalities3 = []
+    data_last_three_years = DemographicStatistics.objects.filter(
+        indicator_id=422,
+        territory_id__in=list_id_territory,
+        year=years[-1]
+    ).order_by('-value')
+    value_first = data_last_three_years.first()  # наибольшее значение
+    value_first = float(value_first.value)
+    value_last = data_last_three_years.last()  # наименьшее значение
+    value_last = float(value_last.value)
+    step = (value_first - value_last) / 11
+
+    for index, data in enumerate(data_last_three_years):
+        territory = Territories.objects.get(pk=data.territory_id)
+        index += 1
+        value_float = round(float(data.value), 1)
+        color_index = min(int((value_first - value_float) / step) + 1, 11)
+        municipalities3.append(
+            (index, territory.territory_name, value_float, f'municipalities{color_index}-2'))  # стиль
     context_data = {
         'title': 'Браки и разводы',
         'menu': menu,
@@ -196,12 +259,15 @@ def marriages(request):
         'values13': values13,
         'values14': values14,
         'values15': values15,
+        'municipalities': municipalities,
+        'municipalities2': municipalities2,
+        'municipalities3': municipalities3
     }
     return render(request, "demographics_monitor/marriages.html", context=context_data)
 
 
 def test_page(request):
-    """Обрабатывает HTTP-запрос и возвращает представление HTML."""
+    """Тестовая страница - удалить потом"""
     years = list(range(2018, 2023))
     """ years = [2020, 2021, 2022] """
     if request.method == "POST":
