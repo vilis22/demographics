@@ -1,12 +1,12 @@
-<header class="header2">
+<header class="header-section">
     <div class="container">
-        <nav class="nav2">
+        <nav class="nav">
             {% for item in section %}
                 <div class="dropdown">
-                    <button class="dropbtn">{{ item.title }}</button>
+                    <button class="dropbtn">{{ item.title }} <i class="fa fa-caret-down"></i></button>
                     <div class="dropdown-content">
                         {% for subitem in item.subitems %}
-                        <a href="{% url subitem.url_name %}">{{ subitem.title }}</a>
+                            <a href="{% url subitem.url_name %}">{{ subitem.title }}</a>
                         {% endfor %}
                     </div>
                 </div>

@@ -4,39 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'demographics_monitor/css/normalize.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="{% static 'demographics_monitor/css/highcharts.css'%}">
+    <link rel="stylesheet" href="{% static 'demographics_monitor/css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'demographics_monitor/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'demographics_monitor/css/table-style.css'%}" type="text/css">
-    
-    <title>{{ title }}</title>    
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="{% static 'demographics_monitor/js/highcharts.js' %}"></script>
     <script src="{% static 'demographics_monitor/js/exporting.js' %}"></script>
     <script src="{% static 'demographics_monitor/js/export-data.js' %}"></script>
     <script src="{% static 'demographics_monitor/js/accessibility.js' %}"></script>
+    <title>{{ title }}</title>
 </head>
 <body>
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <img class="logo" src="{% static 'demographics_monitor/images/gerb.png' %}" alt="Ситуацинный центр">
+                <a class="logo" href="https://altairegion22.ru/">
+                    <img class="logo-img" src="{% static 'demographics_monitor/images/gerb.png' %}" alt="Алтайский край">
+                </a>
                 <ul class="menu">
                     {% for item in menu %}
                         <li class="menu-item">
-                            <a class="menu-item" href="{% url item.url_name %}">{{ item.title }}</a>
+                            <a class="menu-link" href="{% url item.url_name %}">{{ item.title }}</a>
                         </li>
                     {% endfor%}
                 </ul>
-                <a class="menu-item" href="{% url 'login' %}">Войти</a>
+                <a class="login" href="{% url 'login' %}">Войти</a>
             </nav>
         </div>
     </header>
-{% block content %} {% endblock %}
+    {% block content %} {% endblock %}
 </body>
 </html>

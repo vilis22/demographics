@@ -1,0 +1,56 @@
+<script>
+    Highcharts.chart('container14', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Индекс разводимости',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left'
+        },
+        xAxis: {
+            categories: {{ municipalities_3|safe }},
+            title: {
+                text: null
+            },
+            gridLineWidth: 1,
+            lineWidth: 0
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'разводов на 100 браков',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            gridLineWidth: 0
+        },
+        tooltip: {
+            valueSuffix: ' разводов на 100 браков'
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: '15%',
+                dataLabels: {
+                    enabled: true
+                },
+                groupPadding: 0.1
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Год: {{ years|last }}',
+            data: {{ values_colors_3|safe }}
+        }]
+    });
+</script>

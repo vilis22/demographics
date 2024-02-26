@@ -1,201 +1,200 @@
-/* Color Theme Swatches in Hex */
-.My-Color-Theme-1-hex { color: #73122C; }
-.My-Color-Theme-2-hex { color: #BFB30F; }
-.My-Color-Theme-3-hex { color: #BE3156; }
-.My-Color-Theme-4-hex { color: #1F98BF; }
-.My-Color-Theme-5-hex { color: #185C73; }
-
-body {    
-    font-family: "Lato", sans-serif;  /* Загружен шрифт Lato */
-    font-weight: 400;  /* жирность шрифта */
-    font-style: normal;  /* стиль шрифта */
-    line-height: 1.5;  /* межстрочный интервал */
-    color: #2E2E2E;
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    color: #153649;
+    line-height: 22px;
 }
+
+/*
+Для шапки header
+ */
 
 .header {
-    padding: 0 15px 0 15px;  /* внутренний отступ */
-    background-color: #185C73;  /* цвет заливки */
+    background-color: #153649;
+    margin-bottom: 5px;
+    padding: 5px 0 5px;
+    font-weight: 700;
+    color: #ffffff;
 }
 
-/* div */
 .container {
-    max-width: 1600px;  /* максимальная ширина, мониторы в основном 1920 х 1080*/
-    margin: 0 auto;  /* блок центрируется по горизонтали, верхний и нижний отступ 0 */
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 15px;
 }
 
-/* nav для навигационной панели - логотип, меню и войти*/
+/*именно этот раздел делаем flex*/
 .nav {
-    padding: 0 10px 0 10px;  /* внутренний отступ */
-    display: flex;  /* гибкий контейнер элементы по горизонтали, так как контейнер по горизонтали*/
-    justify-content: space-between;  /* левый дочерний элемент слева, правый с права, остальные по центру! */
-    align-items: center;  /* выравнивание вдоль оси по центру (по вертикали по центру) */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* img логотип */
-.logo {
-    margin: 10px 0 10px 0;
+.logo-img {
     width: 60px;
-    box-sizing: border-box;
-
 }
 
-/* ul для меню */
-.menu {
-    display: flex;  /* расположение по горизонтали */
-    list-style: none;  /* убираем перед пунктами меню точки */
-    padding: 0;
-    margin: 0;
-}
-
-/* li - пункты меню */
-.menu-item {
-    padding-left: 30px;
+a {
     text-decoration: none;
-    color: white;
-    font-weight: 700;
+    color: inherit;  /*возьмет который у родителя*/
 }
 
-/* при наведении увеличиваем в размере текст */
-.menu-item:hover {
-    transform: scale(1.3);
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-/* Название раздела */
-.header2 {
-    padding: 0 15px 0 15px;  /* внутренний отступ */
+.menu {
+    display: flex;
 }
 
-.container2 {
-    max-width: 1600px;
-    margin: 5px auto;
-    background-color: #BE3156;
-    box-shadow: 20px 10px 10px rgba(0, 0, 0, 0.5);
+.menu-item {
+    padding-right: 30px;
 }
 
-.title {
-    padding: 10px;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: white;
-    text-align: center;
+/*
+Вторая навигация
+*/
+
+.header-section {
+    padding: 5px 0 5px;
+    color: #ffffff;
 }
 
-/* Навигация разделы */
-.nav2 {
-    display: flex;  /* гибкий контейнер элементы по горизонтали, так как контейнер по горизонтали*/
-    justify-content: center;  /* левый дочерний элемент слева, правый с права, остальные по центру! */
-    align-items: center;  /* выравнивание вдоль оси по центру (по вертикали по центру) */
-    padding-top: 5px;
+.header-section .container {
+    background-color: #365E78;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
 }
 
-/* стили для кнопок разделов */
-.dropdown {
-    position: relative;  /* дочерние элементы будут позиционироваться относительно этого документа */
-    display: inline-block;  
+.dropdown .dropbtn {
+    background-color: inherit;  /*фон кнопок - наследуем от родителя*/
+    border: none;
+    color: #ffffff;
+    margin: 0;
+    outline: none;
+    padding: 15px;
 }
 
-/* button - кнопка */
-.dropbtn {
-    padding: 15px 48px 15px 48px;
-    font-size: 1rem;  /* размер шрифта */
-    font-weight: 700;  /* жирность шрифта */
-    color: white;
-    background-color: #1F98BF;
-    border: 5px solid white;  /* изменение цвета границы */
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+.header-section .container a :hover, .dropdown:hover .dropbtn {
+    background-color: #477c9f;  /*при наведении*/
 }
 
-/* Выпадающий список */
 .dropdown-content {
     display: none;
     position: absolute;
-    min-width: 160px;
-    /* box-shadow: 0px 8px 16px 0pх #000033; */
+    background-color: #153649;  /*выпадающий список*/
+    min-width: 285px;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12);
     z-index: 1;
-    background-color: #185C73;
-    border: 2px solid white;  /* изменение цвета границы */
+    border-radius: 8px;
 }
 
-/* Ссылки внутри выпадающего списка */
-.dropdown-content a {
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
+.dropdown .dropdown-content a {
+    float: none;
+    padding: 12px 16px;
     display: block;
-}
-
-/* Изменение цвета при наведении */
-.dropdown:hover .dropbtn {
-    background-color: #185C73;
+    text-align: left;
 }
 
 .dropdown-content a:hover {
-    background-color: #1F98BF;
+    background-color: #365e78;  /*при наведении на ссылку в списке*/
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-/* содержимое страницы*/
 .main {
-    padding: 0 15px 0 15px;  /* внутренний отступ */
+    padding: 5px 0 5px;
 }
 
-/* универсальный контейнер для всех остальных блоков */
-.container-universal {
-    max-width: 1600px;  /* максимальная ширина, мониторы в основном 1920 х 1080*/
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.section-name {
     margin: 0 auto;
-    /* background-color: #BFB30F; */
-}
-
-/* форма */
-.period-selection-form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.period-selection-form label {
-    margin: 10px;
-}
-
-.period-selection-form input[type="submit"] {
-    margin-left: 20px;
-    padding: 5px 10px 5px 10px;
-    background-color: #185C73;
-    color: white;
+    max-width: 1200px;
+    padding: 15px;
+    background-color: #477C9F;
+    color: #ffffff;
     font-weight: 700;
+    font-size: 1.5em;
+    text-align: center;
+    border-radius: 8px;
 }
 
-/* горизонтальные линия для отделения блоков */
-.hr-horizontal-gradient {
-    width:  100%;
-    margin: 10px 0 30px 0;
-    height: 5px;
+.sub-section-name {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px 0 0 0;
+    font-weight: 700;
+    font-size: 1.25em;
+    text-align: left;
+}
+
+.frame-section, .frame-section-text {
+    margin: 10px auto;
+    max-width: 1200px;
+    padding: 15px;
+    border: 1px solid #446B83;
+    border-radius: 8px;
+    text-align: center;
+}
+.frame-section {
+    text-align: center;
+}
+
+.frame-section-text {
+    text-align: left;
+}
+
+label {
+    margin: 0 5px 0 5px;
+    color: inherit;
+    font-size: inherit;
+}
+
+input {
+    margin: 0 20px;
+    padding: 5px 10px;
+    color: #ffffff;
+    font-weight: 700;
+    font-family: inherit;
+    background-color: #365E78;
+}
+
+/*ТАБЛИЦА*/
+.table-marriages {
     border: none;
-    background: linear-gradient(45deg, #185C73, white);
+    margin: 0 auto;  /*по центру*/
+    border-collapse: collapse;
 }
 
-.highcharts-figure {
-    min-width: 800px;
-    margin: 0 0px 0 0px;
-}
-
-.highcharts-credits {
-    display: none;
-}
-
-/* Для названия разделов */
-.section-title {
-    font-size: 1.3rem;
+.table-marriages thead th {
+    padding: 10px;
     font-weight: 700;
-    /* color: #272727; */
+    line-height: 20px;
+    text-align: left;
+    border-top: 3px solid #446B83;
+    border-bottom: 3px solid #446B83;
+}
+
+.table-marriages tbody td {
+    padding: 10px;
+    line-height: 20px;
+    border-bottom: 1px solid #446B83;
+    text-align: left;
 }
 
 /* Закрепим на верху название подраздела */
@@ -208,5 +207,5 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: +1;
+    z-index: 1;
 }

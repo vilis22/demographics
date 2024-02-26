@@ -179,7 +179,9 @@ def marriages(request):
     list_id_territory = list(range(2, 73))
     list_id_territory.append(182)
     """ Общий коэффициент брачности """
-    municipalities = []
+    municipalities_1 = []
+    values_colors_1 = []
+    colors_1 = ['#157994', '#1CA0C3', '#21B7DF', '#43C2E4', '#6ACFEA']
     data_last_three_years = DemographicStatistics.objects.filter(
         indicator_id=416,
         territory_id__in=list_id_territory,
@@ -189,16 +191,18 @@ def marriages(request):
     value_first = float(value_first.value)
     value_last = data_last_three_years.last()  # наибольшее значение
     value_last = float(value_last.value)
-    step = (value_last - value_first) / 11
-    for index, data in enumerate(data_last_three_years):
+    step = (value_last - value_first) / 5
+    for data in data_last_three_years:
         territory = Territories.objects.get(pk=data.territory_id)
-        index += 1
+        municipalities_1.append(territory.territory_name)
         value_float = round(float(data.value), 1)
-        color_index = min(int((value_float - value_first) / step) + 1, 11)
-        municipalities.append((index, territory.territory_name, value_float, f'municipalities{color_index}'))  # стиль
+        color_index = min(int((value_float - value_first) / step), 4)
+        values_colors_1.append({'y': value_float, 'color': colors_1[color_index]})
 
     """ Общий коэффициент разводимости """
-    municipalities2 = []
+    municipalities_2 = []
+    values_colors_2 = []
+    colors_2 = ['#D22929', '#DC4C4C', '#E37171', '#EB9C9C', '#F5CDCD']
     data_last_three_years = DemographicStatistics.objects.filter(
         indicator_id=419,
         territory_id__in=list_id_territory,
@@ -208,17 +212,18 @@ def marriages(request):
     value_first = float(value_first.value)
     value_last = data_last_three_years.last()  # наименьшее значение
     value_last = float(value_last.value)
-    step = (value_first - value_last) / 11
-    
-    for index, data in enumerate(data_last_three_years):
+    step = (value_first - value_last) / 5
+
+    for data in data_last_three_years:
         territory = Territories.objects.get(pk=data.territory_id)
-        index += 1
+        municipalities_2.append(territory.territory_name)
         value_float = round(float(data.value), 1)
-        color_index = min(int((value_first - value_float) / step) + 1, 11)
-        municipalities2.append((index, territory.territory_name, value_float, f'municipalities{color_index}-2'))  # стиль
+        color_index = min(int((value_first - value_float) / step), 4)
+        values_colors_2.append({'y': value_float, 'color': colors_2[color_index]})
 
     """ Индекс разводимости """
-    municipalities3 = []
+    municipalities_3 = []
+    values_colors_3 = []
     data_last_three_years = DemographicStatistics.objects.filter(
         indicator_id=422,
         territory_id__in=list_id_territory,
@@ -228,15 +233,15 @@ def marriages(request):
     value_first = float(value_first.value)
     value_last = data_last_three_years.last()  # наименьшее значение
     value_last = float(value_last.value)
-    step = (value_first - value_last) / 11
+    step = (value_first - value_last) / 5
 
-    for index, data in enumerate(data_last_three_years):
+    for data in data_last_three_years:
         territory = Territories.objects.get(pk=data.territory_id)
-        index += 1
+        municipalities_3.append(territory.territory_name)
         value_float = round(float(data.value), 1)
-        color_index = min(int((value_first - value_float) / step) + 1, 11)
-        municipalities3.append(
-            (index, territory.territory_name, value_float, f'municipalities{color_index}-2'))  # стиль
+        color_index = min(int((value_first - value_float) / step), 4)
+        values_colors_3.append({'y': value_float, 'color': colors_2[color_index]})
+
     context_data = {
         'title': 'Браки и разводы',
         'menu': menu,
@@ -259,9 +264,12 @@ def marriages(request):
         'values13': values13,
         'values14': values14,
         'values15': values15,
-        'municipalities': municipalities,
-        'municipalities2': municipalities2,
-        'municipalities3': municipalities3
+        'municipalities_1': municipalities_1,
+        'values_colors_1': values_colors_1,
+        'municipalities_2': municipalities_2,
+        'values_colors_2': values_colors_2,
+        'municipalities_3': municipalities_3,
+        'values_colors_3': values_colors_3
     }
     return render(request, "demographics_monitor/marriages.html", context=context_data)
 

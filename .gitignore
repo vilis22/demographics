@@ -3,4 +3,4 @@
 **/__pycache__
 venv/
 db.sqlite3
-1data_download/
+data_download/tbl_values.xml
