@@ -1,0 +1,29 @@
+<script>
+    Highcharts.mapChart('container_marriage', {
+        title: {
+            text: 'Общий коэффициент брачности, {{ years|last }} г.'
+        },
+        colorAxis: {
+            minColor: '#ffffff', // белый
+            maxColor: '#12627e'  // темнее синий
+        },
+        legend: {
+            align: 'left',
+            floating: true,
+            title: {
+                text: 'на 1 000 человек населения'
+            }
+        },
+        mapNavigation: {
+            enabled: true
+        },
+        series: [{
+            data: {{ marriage_map|safe}},
+            name: 'на 1 000 человек населения',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+</script>

@@ -18,7 +18,7 @@
 #container11,
 #container12,
 #container13 {
-    height: 400px;
+    min-height: 440px;
 }
 
 #container12,
@@ -61,4 +61,17 @@
 
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
+}
+
+#container_marriage,
+#container_divorces_coefficient,
+#container_divorces_index {
+    min-height: 900px;
+    margin: 0 auto;
+}
+
+.loading {
+    margin-top: 10em;
+    text-align: center;
+    color: gray;
 }

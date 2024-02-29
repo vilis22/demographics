@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>{{ title }}</h3>
-Здесь информация о платформе, как ей пользоваться, типа справки
+
+<main class="main">
+    <div class="section-name">
+        О платформе
+    </div>
+    {% load static %}
+    <div class="sub-section-name">
+        <div class="attention-block">
+            <img src="{% static 'demographics_monitor/images/attention.png' %}" alt="" class="attention">САЙТ В РАЗРАБОТКЕ...
+        </div>
+    </div>
+    <div class="frame-section-text">
+        <p>Наш сайт находится в стадии разработки!</p>
+        <p>Для просмотра и тестирования доступен раздел <b>"Браки и разводы - Основные показатели брачности и разводимости."</b></p>
+        <p>Следите за обновлениями в разделе <b>"Новости"</b></p>
+    </div>
+</main>
 {% endblock %}

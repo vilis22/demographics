@@ -2,6 +2,18 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from .models import DemographicStatistics, Territories
 from .forms import PeriodSelectionForm
+import json
+
+
+def get_name_and_path_by_id(id123, file_path='demographics_monitor/map.json'):
+    """Возвращает МО и координаты расположения на карте"""
+    with open(file_path, 'r') as file:
+        data123 = json.load(file)
+    for item in data123:
+        if item['id'] == id123:
+            return item['name'], item['path']
+    return None, None
+
 
 menu = [
     {'title': "Демографический мониторинг", 'url_name': 'home'},
@@ -79,10 +91,16 @@ def index(request):
 
 
 def concept(request):
-    return HttpResponse("Концепция")
+    """Концепция"""
+    data = {
+        'title': 'Концепция',
+        'menu': menu,
+    }
+    return render(request, 'demographics_monitor/concept.html', context=data)
 
 
 def platform(request):
+    """О платформе"""
     data = {
         'title': 'О платформе',
         'menu': menu,
@@ -91,41 +109,85 @@ def platform(request):
 
 
 def news(request):
-    return HttpResponse("Новости")
+    """Новости"""
+    data = {
+        'title': 'Новости',
+        'menu': menu
+    }
+    return render(request, "demographics_monitor/news.html", context=data)
 
 
 def contacts(request):
-    return HttpResponse("Контакты")
+    """Контакты"""
+    data = {
+        'title': 'Контакты',
+        'menu': menu
+    }
+    return render(request, "demographics_monitor/contacts.html", context=data)
 
 
 def login(request):
-    return HttpResponse("Войти")
+    """Авторизация"""
+    data = {
+        'title': 'Авторизация',
+        'menu': menu
+    }
+    return render(request, "demographics_monitor/login.html", context=data)
 
 
 def target(request):
-    return HttpResponse("Целевые показатели и прогноз")
+    """Целевые показатели и прогноз"""
+    data = {
+        'title': 'Целевые показатели и прогноз',
+        'menu': menu,
+        'section': section,
+    }
+    return render(request, "demographics_monitor/target.html", context=data)
 
 
 def population(request):
-    return HttpResponse("Численность")
+    """Численность и структура населения"""
+    data = {
+        'title': 'Численность и структура населения',
+        'menu': menu,
+        'section': section,
+    }
+    return render(request, "demographics_monitor/population.html", context=data)
 
 
 def fertility(request):
-    return HttpResponse("Рождаемость")
+    """Рождаемость"""
+    data = {
+        'title': 'Рождаемость',
+        'menu': menu,
+        'section': section,
+    }
+    return render(request, "demographics_monitor/fertility.html", context=data)
 
 
 def mortality(request):
-    return HttpResponse("Смертность")
+    """Смертность"""
+    data = {
+        'title': 'Смертность',
+        'menu': menu,
+        'section': section,
+    }
+    return render(request, "demographics_monitor/mortality.html", context=data)
 
 
 def migration(request):
-    return HttpResponse("Миграция")
+    """Миграция"""
+    data = {
+        'title': 'Миграция',
+        'menu': menu,
+        'section': section,
+    }
+    return render(request, "demographics_monitor/migration.html", context=data)
 
 
 def marriages(request):
-    """Браки и разводы"""
+    """ Браки и разводы - Основные показатели брасночти и разводимости """
     years = list(range(2018, 2023))
-    """ years = [2020, 2021, 2022] """
     if request.method == "POST":
         form = PeriodSelectionForm(request.POST)
         if form.is_valid():
@@ -178,10 +240,13 @@ def marriages(request):
     """ Сформируем список МО для 3х рейтингов """
     list_id_territory = list(range(2, 73))
     list_id_territory.append(182)
-    """ Общий коэффициент брачности """
+    middle_y = ['Яровое', 'Первомайский', 'Рубцовский', 'Егорьевский', 'Алейский']  # для оторбражения на карте, другие названия районов закрывают их
+
+    # Общий коэффициент брачности
     municipalities_1 = []
     values_colors_1 = []
-    colors_1 = ['#157994', '#1CA0C3', '#21B7DF', '#43C2E4', '#6ACFEA']
+    colors_1 = ['#d0dfe5', '#a0c0cb', '#71a0b2', '#418198', '#12617e']
+    marriage_map = []
     data_last_three_years = DemographicStatistics.objects.filter(
         indicator_id=416,
         territory_id__in=list_id_territory,
@@ -192,17 +257,24 @@ def marriages(request):
     value_last = data_last_three_years.last()  # наибольшее значение
     value_last = float(value_last.value)
     step = (value_last - value_first) / 5
+
     for data in data_last_three_years:
         territory = Territories.objects.get(pk=data.territory_id)
         municipalities_1.append(territory.territory_name)
         value_float = round(float(data.value), 1)
         color_index = min(int((value_float - value_first) / step), 4)
         values_colors_1.append({'y': value_float, 'color': colors_1[color_index]})
+        name, path = get_name_and_path_by_id(str(territory.id))
+        if name not in middle_y:
+            marriage_map.append({"name": name, "path": path, "value": value_float})
+        else:
+            marriage_map.append({"name": name, "path": path, "value": value_float, "middleY": 0.25})
 
-    """ Общий коэффициент разводимости """
+    # Общий коэффициент разводимости
     municipalities_2 = []
     values_colors_2 = []
-    colors_2 = ['#D22929', '#DC4C4C', '#E37171', '#EB9C9C', '#F5CDCD']
+    colors_2 = ['#d22929', '#db5454', '#e47f7f', '#eda9a9', '#f6d4d4']
+    divorces_coefficient_map = []
     data_last_three_years = DemographicStatistics.objects.filter(
         indicator_id=419,
         territory_id__in=list_id_territory,
@@ -220,10 +292,16 @@ def marriages(request):
         value_float = round(float(data.value), 1)
         color_index = min(int((value_first - value_float) / step), 4)
         values_colors_2.append({'y': value_float, 'color': colors_2[color_index]})
+        name, path = get_name_and_path_by_id(str(territory.id))
+        if name not in middle_y:
+            divorces_coefficient_map.append({"name": name, "path": path, "value": value_float})
+        else:
+            divorces_coefficient_map.append({"name": name, "path": path, "value": value_float, "middleY": 0.25})
 
-    """ Индекс разводимости """
+    # Индекс разводимости
     municipalities_3 = []
     values_colors_3 = []
+    divorces_index_map = []
     data_last_three_years = DemographicStatistics.objects.filter(
         indicator_id=422,
         territory_id__in=list_id_territory,
@@ -234,13 +312,17 @@ def marriages(request):
     value_last = data_last_three_years.last()  # наименьшее значение
     value_last = float(value_last.value)
     step = (value_first - value_last) / 5
-
     for data in data_last_three_years:
         territory = Territories.objects.get(pk=data.territory_id)
         municipalities_3.append(territory.territory_name)
         value_float = round(float(data.value), 1)
         color_index = min(int((value_first - value_float) / step), 4)
         values_colors_3.append({'y': value_float, 'color': colors_2[color_index]})
+        name, path = get_name_and_path_by_id(str(territory.id))
+        if name not in middle_y:
+            divorces_index_map.append({"name": name, "path": path, "value": value_float})
+        else:
+            divorces_index_map.append({"name": name, "path": path, "value": value_float, "middleY": 0.25})
 
     context_data = {
         'title': 'Браки и разводы',
@@ -269,53 +351,12 @@ def marriages(request):
         'municipalities_2': municipalities_2,
         'values_colors_2': values_colors_2,
         'municipalities_3': municipalities_3,
-        'values_colors_3': values_colors_3
+        'values_colors_3': values_colors_3,
+        'marriage_map': marriage_map,
+        'divorces_coefficient_map': divorces_coefficient_map,
+        'divorces_index_map': divorces_index_map
     }
     return render(request, "demographics_monitor/marriages.html", context=context_data)
-
-
-def test_page(request):
-    """Тестовая страница - удалить потом"""
-    years = list(range(2018, 2023))
-    """ years = [2020, 2021, 2022] """
-    if request.method == "POST":
-        form = PeriodSelectionForm(request.POST)
-        if form.is_valid():
-            start_date = int(form.cleaned_data['start_date'])
-            end_date = int(form.cleaned_data['end_date'])
-            years = list(range(start_date, end_date+1))
-    else:
-        form = PeriodSelectionForm
-    """ indicators = list(range(410, 431)) """
-    indicators = list(range(410, 431))
-    territories = [1, 74, 73]
-    data_last_three_years = DemographicStatistics.objects.filter(
-        indicator_id__in=indicators,
-        territory_id__in=territories,
-        year__in=years
-    ).order_by('indicator_id')
-    data_by_indicator = {}
-    list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
-    for data in data_last_three_years:
-        if data.territory_id == 74:
-            indicator_name = data.indicator.indicator_name + ' СФО'
-        elif data.territory_id == 73:
-            indicator_name = data.indicator.indicator_name + ' РФ'
-        else:
-            indicator_name = data.indicator.indicator_name
-        unit_name = data.indicator.unit_measurement.unit_name
-        if indicator_name not in data_by_indicator:
-            data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
-
-        if data.indicator.unit_measurement.id in list_int_id:
-            data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
-        else:
-            data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
-    values1 = [data_by_indicator['Число браков']['values'][y] if data_by_indicator['Число браков']['values'][y] != '' else '' for y in years]
-    values2 = [data_by_indicator['Число разводов']['values'][y] if data_by_indicator['Число разводов']['values'][y] != '' else '' for y in years]
-    values3 = [data_by_indicator['Индекс разводимости']['values'][y] if data_by_indicator['Индекс разводимости']['values'][y] != '' else '' for y in years]
-    context_data = {'form': form, 'data_by_indicator': data_by_indicator, 'years': years, 'values1': values1, 'values2': values2, 'values3': values3}
-    return render(request, 'demographics_monitor/test_page.html', context=context_data)
 
 
 def page_not_found(request, exception):

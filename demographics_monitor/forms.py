@@ -2,12 +2,13 @@ from django import forms
 
 
 class PeriodSelectionForm(forms.Form):
-    YEAR_CHOICES = [(i, i) for i in range(2011, 2023)]
+    """Для формы выбора периода воводы данных по показателям"""
+    date = [(i, i) for i in range(2011, 2023)]
     start_date = forms.ChoiceField(
-        choices=YEAR_CHOICES,
+        choices=date,
         initial=2018,
     )
     end_date = forms.ChoiceField(
-        choices=YEAR_CHOICES,
+        choices=date[5:],
         initial=2022,
     )

@@ -4,7 +4,7 @@
                 zoomType: 'xy'
             },
             title: {
-                text: 'Сельская местность',
+                text: 'Сельская местность, {{ years|first }}—{{ years|last }} гг.',
                 align: 'center'
             },
             subtitle: {
@@ -69,7 +69,7 @@
             series: [{
                 name: 'Браки',
                 type: 'column',
-                color: '#589cb4',
+                color: '#71a0b2',
                 data: {{ values7|safe }},
                 tooltip: {
                     valueSuffix: ' единиц'
@@ -77,7 +77,7 @@
             }, {
                 name: 'Разводы',
                 type: 'column',
-                color: '#e17070',
+                color: '#e47f7f',
                 data: {{ values8|safe }},
                 tooltip: {
                     valueSuffix: ' единиц'
@@ -86,7 +86,7 @@
                 name: 'Индекс разводимости',
                 type: 'spline',
                 yAxis: 1,
-                color: '#e17070',
+                color: '#e47f7f',
                 data: {{ values9|safe }},
                 tooltip: {
                     valueSuffix: ' разводов на 100 бр.'

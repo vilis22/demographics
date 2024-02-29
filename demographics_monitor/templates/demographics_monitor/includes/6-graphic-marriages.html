@@ -4,7 +4,7 @@
             type: 'column'
         },
         title: {
-            text: 'Индекс разводимости',
+            text: 'Индекс разводимости, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -53,12 +53,12 @@
             {
                 name: 'Городская местность',
                 data: {{ values6|safe }},
-                color: '#dc4c4c'
+                color: '#db5454'
             },
             {
                 name: 'Сельская местность',
                 data: {{ values9|safe }},
-                color: '#e17070'
+                color: '#e47f7f'
             },
             {
                 name: 'Алтайский край',

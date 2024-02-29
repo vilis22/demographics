@@ -4,7 +4,7 @@
             type: 'column'
         },
         title: {
-            text: 'Общий коэффициент брачности',
+            text: 'Общий коэффициент брачности, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -53,12 +53,12 @@
             {
                 name: 'Городская местность',
                 data: {{ values10|safe }},
-                color: '#157394'
+                color: '#418198'
             },
             {
                 name: 'Сельская местность',
                 data: {{ values12|safe }},
-                color: '#589cb4'
+                color: '#71a0b2'
             },
             {
                 name: 'Алтайский край',

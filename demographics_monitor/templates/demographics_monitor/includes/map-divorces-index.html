@@ -1,0 +1,29 @@
+<script>
+    Highcharts.mapChart('container_divorces_index', {
+        title: {
+            text: 'Индекс разводимости, {{ years|last }} г.'
+        },
+        colorAxis: {
+            minColor: '#ffffff', // белый
+            maxColor: '#d22929'  // темный красный
+        },
+        legend: {
+            align: 'left',
+            floating: true,
+            title: {
+                text: 'разводов на 100 браков'
+            }
+        },
+        mapNavigation: {
+            enabled: true
+        },
+        series: [{
+            data: {{ divorces_index_map|safe}},
+            name: 'разводов на 100 браков',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+</script>

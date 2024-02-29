@@ -3,16 +3,15 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),  # http://127.0.0.1:8000 отвечает за главную страницу
-    path('concept/', views.concept, name='concept'),
-    path('platform/', views.platform, name='platform'),
-    path('news/', views.news, name='news'),
-    path('contacts/', views.contacts, name='contacts'),
-    path('login/', views.login, name='login'),
-    path('test_page/', views.test_page, name='test_page'),  # http://127.0.0.1:8000/test_page/
-    path('target/', views.target, name='target'),
-    path('population/', views.population, name='population'),
-    path('fertility/', views.fertility, name='fertility'),
-    path('mortality/', views.mortality, name='mortality'),
-    path('migration/', views.migration, name='migration'),
-    path('marriages/', views.marriages, name='marriages')
+    path('concept/', views.concept, name='concept'),  # Концепция
+    path('platform/', views.platform, name='platform'),  # О платформе
+    path('news/', views.news, name='news'),  # Новости
+    path('contacts/', views.contacts, name='contacts'),  # Контакты
+    path('login/', views.login, name='login'),  # Авторизация
+    path('target/', views.target, name='target'),  # Целевые показатели и прогноз
+    path('population/', views.population, name='population'),  # Численность и структура населения
+    path('fertility/', views.fertility, name='fertility'),  # Рождаемость
+    path('mortality/', views.mortality, name='mortality'),  # Смертность
+    path('migration/', views.migration, name='migration'),  # Миграция
+    path('marriages/', views.marriages, name='marriages')  # Браки и разводы
 ]

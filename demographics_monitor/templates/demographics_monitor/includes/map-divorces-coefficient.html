@@ -1,0 +1,29 @@
+<script>
+    Highcharts.mapChart('container_divorces_coefficient', {
+        title: {
+            text: 'Общий коэффициент разводимости, {{ years|last }} г.'
+        },
+        colorAxis: {
+            minColor: '#ffffff', // светлый красный
+            maxColor: '#d22929'  // темный красный
+        },
+        legend: {
+            align: 'left',
+            floating: true,
+            title: {
+                text: 'на 1 000 человек населения'
+            }
+        },
+        mapNavigation: {
+            enabled: true
+        },
+        series: [{
+            data: {{ divorces_coefficient_map|safe}},
+            name: 'на 1 000 человек населения',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+</script>

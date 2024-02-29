@@ -4,7 +4,7 @@
             type: 'column'
         },
         title: {
-            text: 'Браки',
+            text: 'Браки, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -53,12 +53,12 @@
             {
                 name: 'Городская местность',
                 data: {{ values4|safe }},
-                color: '#157394'
+                color: '#418198'
             },
             {
                 name: 'Сельская местность',
                 data: {{ values7|safe }},
-                color: '#589cb4'
+                color: '#71a0b2'
             },
             {
                 name: 'Алтайский край',

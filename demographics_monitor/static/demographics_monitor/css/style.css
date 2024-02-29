@@ -5,6 +5,11 @@ body {
     font-size: 15px;
     color: #153649;
     line-height: 22px;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 /*
@@ -120,6 +125,8 @@ ul {
 
 .main {
     padding: 5px 0 5px;
+
+    flex: 1;
 }
 
 .section-name {
@@ -134,7 +141,8 @@ ul {
     border-radius: 8px;
 }
 
-.sub-section-name {
+.sub-section-name,
+.sub-section-name-contents {
     margin: 0 auto;
     max-width: 1200px;
     padding: 20px 0 0 0;
@@ -143,14 +151,19 @@ ul {
     text-align: left;
 }
 
-.frame-section, .frame-section-text {
+.sub-section-name-contents {
+    text-align: center;
+}
+
+.frame-section,
+.frame-section-text {
     margin: 10px auto;
     max-width: 1200px;
     padding: 15px;
     border: 1px solid #446B83;
     border-radius: 8px;
-    text-align: center;
 }
+
 .frame-section {
     text-align: center;
 }
@@ -163,6 +176,12 @@ label {
     margin: 0 5px 0 5px;
     color: inherit;
     font-size: inherit;
+}
+select {
+    padding: 5px 10px;
+    color: inherit;
+    border-color: #365E78;
+    font-weight: 700;
 }
 
 input {
@@ -197,15 +216,37 @@ input {
     text-align: left;
 }
 
-/* Закрепим на верху название подраздела */
-#navbar {
-    overflow: hidden;
-    background-color: white;
+/*ТАБЛИЦА для оглавления*/
+.table-marriages-contents {
+    margin: 15px auto;  /* по центру */
+    color: #ffffff;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1;
+.table-marriages-contents th,
+.table-marriages-contents td {
+    padding: 10px;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 5px solid #ffffff;
+    background-image: linear-gradient(to right, #153649, #7EB0D6);
+    border-radius: 8px;
 }
+
+/*Подвал*/
+.footer {
+    background-color: #153649;
+    padding: 15px 0 15px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.attention-block {
+    display: inline-flex;
+    align-items: center;
+}
+
+.attention {
+    width: 60px;
+    margin-right: 15px;
+}
+
