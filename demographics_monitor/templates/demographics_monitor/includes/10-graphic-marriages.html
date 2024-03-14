@@ -34,14 +34,14 @@
                 }
             },
             title: {
-                text: 'на 1 000 человек населения',
+                text: 'браков на 1 000 человек населения',
                 style: {
                         color: 'black'
                     }
             }
         },
         tooltip: {
-            valueSuffix: ' на 1 000 человек населения'
+            valueSuffix: ' браков на 1 000 человек населения'
         },
         plotOptions: {
             column: {
@@ -52,17 +52,32 @@
         series: [
             {
                 name: 'Городская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values10|safe }},
                 color: '#418198'
             },
             {
                 name: 'Сельская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values12|safe }},
                 color: '#71a0b2'
             },
             {
                 name: 'Алтайский край',
                 type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values14|safe }},
                 color: '#12627e'
             }

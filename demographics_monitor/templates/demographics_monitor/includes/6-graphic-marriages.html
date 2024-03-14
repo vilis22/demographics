@@ -52,17 +52,32 @@
         series: [
             {
                 name: 'Городская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values6|safe }},
                 color: '#db5454'
             },
             {
                 name: 'Сельская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values9|safe }},
                 color: '#e47f7f'
             },
             {
                 name: 'Алтайский край',
                 type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values3|safe }},
                 color: '#d22929'
             }

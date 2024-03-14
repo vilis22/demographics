@@ -25,12 +25,15 @@
             }],
             yAxis: [{
                 title: {
-                    text: '1 000 единиц',
+                    text: 'единиц',
                     style: {
                         color: 'black'
                     }
                 },
                 labels: {
+                    formatter: function() {
+                        return this.value; // Возвращает значение метки без изменений
+                    },
                     style: {
                         color: 'black'
                     }
@@ -69,6 +72,11 @@
             series: [{
                 name: 'Браки',
                 type: 'column',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 color: '#12627e',
                 data: {{ values1|safe }},
                 tooltip: {
@@ -77,7 +85,11 @@
             }, {
                 name: 'Разводы',
                 type: 'column',
-                // color: '#d22929',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 color: '#D22929',
                 data: {{ values2|safe }},
                 tooltip: {
@@ -86,6 +98,11 @@
             }, {
                 name: 'Индекс разводимости',
                 type: 'spline',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 yAxis: 1,
                 color: '#D22929',
                 data: {{ values3|safe }},

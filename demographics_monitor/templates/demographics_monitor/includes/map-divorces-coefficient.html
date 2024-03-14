@@ -11,7 +11,7 @@
             align: 'left',
             floating: true,
             title: {
-                text: 'на 1 000 человек населения'
+                text: 'разводов на 1 000 человек населения'
             }
         },
         mapNavigation: {
@@ -19,7 +19,7 @@
         },
         series: [{
             data: {{ divorces_coefficient_map|safe}},
-            name: 'на 1 000 человек населения',
+            name: 'разводов на 1 000 человек населения',
             dataLabels: {
                 enabled: true,
                 format: '{point.name}'

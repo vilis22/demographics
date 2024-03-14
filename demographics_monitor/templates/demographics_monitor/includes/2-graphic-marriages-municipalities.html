@@ -1,10 +1,10 @@
 <script>
-    Highcharts.chart('container8', {
+    Highcharts.chart('container2', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Сельская местность, {{ years|first }}—{{ years|last }} гг.',
+            text: '{{ selected_territory }}, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -57,8 +57,8 @@
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values12|safe }},
-                color: '#71a0b2'
+                data: {{ values4|safe }},
+                color: '#12627e'
             },
             {
                 name: 'Общий коэффициент разводимости',
@@ -67,8 +67,8 @@
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values13|safe }},
-                color: '#e47f7f'
+                data: {{ values5|safe }},
+                color: '#d22929'
             }
         ]
     });

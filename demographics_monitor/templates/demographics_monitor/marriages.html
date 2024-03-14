@@ -7,49 +7,52 @@
         Основные показатели брачности и разводимости
     </div>
 
-    <div class="frame-section">
-        <form action="" method="post" class="period-selection-form">
-            {% csrf_token %}
-            <label for="start_date">Выберите период с </label>
-            {{ form.start_date }}
-            <label for="end_date">по</label>
-            {{ form.end_date }}
-            <input type="submit" value="Показать">
-        </form>
-
-        <table class="table-marriages-contents">
-            <thead>
-                <tr>
-                    <th><a href="#table-1">Табл. 1 — Основные показатели брачности и разводимости населения, {{ years|first }}—{{ years|last }} гг.</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="#figure-1">Рис. 1 — Пространственная дифференциация показателей</td>
-                </tr>
-                <tr>
-                    <td><a href="#figure-2">Рис. 2 — Рейтинг муниципальных образований Алтайского края</td>
-                </tr>
-                <tr>
-                    <td><a href="#figure-3">Рис. 3 — Динамика числа браков, разводов и индекса разводимости</td>
-                </tr>
-                <tr>
-                    <td><a href="#figure-4">Рис. 4 — Динамика числа браков, разводов и индекса разводимости в разрезе территорий</td>
-                </tr>
-                <tr>
-                    <td><a href="#figure-5">Рис. 5 — Динамика общих коэффициентов брачности и разводимости</td>
-                </tr>
-                <tr>
-                    <td><a href="#figure-6">Рис. 6 — Динамика общих коэффициентов брачности и разводимости в разрезе территорий</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="menu-button" onclick="openNav()">
+        ☰ Меню
+    </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <div class="menu-button-section">
+            <form action="" method="post" class="period-selection-form">
+                {% csrf_token %}
+                <label for="start_date">Территория: </label>
+                {{ form.territory_level }}
+                <br>
+                <br>
+                <label for="start_date">Период с </label>
+                {{ form.start_date }}
+                <label for="end_date">по</label>
+                {{ form.end_date }}
+                <br>
+                <br>
+                <input type="submit" value="Показать">
+            </form>
+        </div>
+        <a href="#table-1">Табл. 1 — Основные показатели</a>
+        <a href="#figure-1">Рис. 1 — Пространственная дифференциация показателей</a>
+        <a href="#figure-2">Рис. 2 — Рейтинг муниципальных образований Алтайского края</a>
+        <a href="#figure-3">Рис. 3 — Динамика числа браков, разводов и индекса разводимости</a>
+        <a href="#figure-4">Рис. 4 — Динамика числа браков, разводов и индекса разводимости в разрезе территорий</a>
+        <a href="#figure-5">Рис. 5 — Динамика общих коэффициентов брачности и разводимости</a>
+        <a href="#figure-6">Рис. 6 — Динамика общих коэффициентов брачности и разводимости в разрезе территорий</a>
     </div>
 
-    <div class="sub-section-name" id="table-1">
-        Табл. 1 — Основные показатели брачности и разводимости населения, {{ years|first }}—{{ years|last }} гг.
-    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "330px";
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="table-1">
+            Табл. 1 — Основные показатели брачности и разводимости населения, {{ years|first }}—{{ years|last }} гг.
+        </div>
+
         <table class="table-marriages">
             <thead>
                 <tr>
@@ -75,10 +78,12 @@
         </table>
     </div>
 
-    <div class="sub-section-name" id="figure-1">
-        Рис. 1 — Пространственная дифференциация показателей
-    </div>
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="figure-1">
+            Рис. 1 — Пространственная дифференциация показателей
+        </div>
         <div id="container_marriage"></div>
         {% include 'demographics_monitor/includes/map-marriage.html' %}
         <div id="container_divorces_coefficient"></div>
@@ -87,68 +92,93 @@
         {% include 'demographics_monitor/includes/map-divorces-index.html' %}
     </div>
 
-    <div class="sub-section-name" id="figure-2">
-        Рис. 2 — Рейтинг муниципальных образований Алтайского края
-    </div>
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="figure-2">
+            Рис. 2 — Рейтинг муниципальных образований Алтайского края
+        </div>
+
         <figure class="highcharts-figure">
             <div id="container12"></div>
         </figure>
         {% include 'demographics_monitor/includes/12-graphic-marriages.html' %}
+
         <figure class="highcharts-figure">
             <div id="container13"></div>
         </figure>
         {% include 'demographics_monitor/includes/13-graphic-marriages.html' %}
+
         <figure class="highcharts-figure">
             <div id="container14"></div>
         </figure>
         {% include 'demographics_monitor/includes/14-graphic-marriages.html' %}
     </div>
 
-    <div class="sub-section-name" id="figure-3">
-        Рис. 3 — Динамика числа браков, разводов и индекса разводимости
-    </div>
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="figure-3">
+            Рис. 3 — Динамика числа браков, разводов и индекса разводимости
+        </div>
+
         <figure class="highcharts-figure"><div id="container3"></div></figure>
         {% include 'demographics_monitor/includes/3-graphic-marriages.html' %}
+
         <figure class="highcharts-figure"><div id="container1"></div></figure>
         {% include 'demographics_monitor/includes/1-graphic-marriages.html' %}
+
         <figure class="highcharts-figure"><div id="container2"></div></figure>
         {% include 'demographics_monitor/includes/2-graphic-marriages.html' %}
     </div>
 
-    <div class="sub-section-name" id="figure-4">
-        Рис. 4 — Динамика числа браков, разводов и индекса разводимости в разрезе территорий
-    </div>
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="figure-4">
+            Рис. 4 — Динамика числа браков, разводов и индекса разводимости в разрезе территорий
+        </div>
+
         <figure class="highcharts-figure"><div id="container4"></div></figure>
         {% include 'demographics_monitor/includes/4-graphic-marriages.html' %}
+
         <figure class="highcharts-figure"><div id="container5"></div></figure>
         {% include 'demographics_monitor/includes/5-graphic-marriages.html' %}
+
         <figure class="highcharts-figure"><div id="container6"></div></figure>
         {% include 'demographics_monitor/includes/6-graphic-marriages.html' %}
     </div>
 
-    <div class="sub-section-name" id="figure-5">
-        Рис. 5 — Динамика общих коэффициентов брачности и разводимости
-    </div>
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="figure-5">
+            Рис. 5 — Динамика общих коэффициентов брачности и разводимости
+        </div>
+
         <figure class="highcharts-figure"><div id="container9"></div></figure>
         {% include 'demographics_monitor/includes/9-graphic-marriages.html' %}
+
         <figure class="highcharts-figure"><div id="container7"></div></figure>
         {% include 'demographics_monitor/includes/7-graphic-marriages.html' %}
+
         <figure class="highcharts-figure"><div id="container8"></div></figure>
         {% include 'demographics_monitor/includes/8-graphic-marriages.html' %}
     </div>
 
-    <div class="sub-section-name" id="figure-6">
-        Рис. 6 — Динамика общих коэффициентов брачности и разводимости в разрезе территорий
-    </div>
+
+
     <div class="frame-section">
+        <div class="sub-section-name" id="figure-6">
+            Рис. 6 — Динамика общих коэффициентов брачности и разводимости в разрезе территорий
+        </div>
+
         <figure class="highcharts-figure">
             <div id="container10"></div>
+
         </figure>
         {% include 'demographics_monitor/includes/10-graphic-marriages.html' %}
+
         <figure class="highcharts-figure">
             <div id="container11"></div>
         </figure>

@@ -69,7 +69,6 @@ ul {
 .header-section {
     padding: 5px 0 5px;
     color: #ffffff;
-    /*background-color: #E0E0E0;*/
 }
 
 .header-section .container {
@@ -80,7 +79,7 @@ ul {
                 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
                 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
                 0 100px 80px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    /*border-radius: 8px;*/
 }
 
 .dropdown .dropbtn {
@@ -107,8 +106,7 @@ ul {
                 0 22.3px 17.9px rgba(0, 0, 0, 0.072),
                 0 41.8px 33.4px rgba(0, 0, 0, 0.086),
                 0 100px 80px rgba(0, 0, 0, 0.12);
-    z-index: 1;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
 }
 
 .dropdown .dropdown-content a {
@@ -128,7 +126,6 @@ ul {
 
 .main {
     padding: 5px 0 5px;
-    /*background-color: #E0E0E0;*/
     flex: 1;
 }
 
@@ -141,14 +138,14 @@ ul {
     font-weight: 700;
     font-size: 1.5em;
     text-align: center;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
 }
 
 .sub-section-name,
 .sub-section-name-contents {
     margin: 0 auto;
     max-width: 1200px;
-    padding: 20px 0 0 0;
+    padding: 0 0 10px 10px;
     font-weight: 700;
     font-size: 1.25em;
     text-align: left;
@@ -160,11 +157,17 @@ ul {
 
 .frame-section,
 .frame-section-text {
-    margin: 10px auto;
+    margin: 15px auto;
     max-width: 1200px;
-    padding: 15px;
-    border: 2px solid #729ca2;
-    border-radius: 8px;
+    padding: 15px 15px 0 15px;
+    border: 1px solid #729ca2;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12);
+    /*border-radius: 8px;*/
     background-color: #ffffff;
 }
 
@@ -177,19 +180,16 @@ ul {
 }
 
 label {
-    margin: 0 5px 0 5px;
     color: inherit;
     font-size: inherit;
 }
 select {
-    padding: 5px 10px;
     color: inherit;
     border-color: #365E78;
     font-weight: 700;
 }
 
 input {
-    margin: 0 20px;
     padding: 5px 10px;
     color: #ffffff;
     font-weight: 700;
@@ -200,7 +200,7 @@ input {
 /*ТАБЛИЦА*/
 .table-marriages {
     border: none;
-    margin: 0 auto;  /*по центру*/
+    margin: 10px auto;  /*по центру*/
     border-collapse: collapse;
 }
 
@@ -218,22 +218,6 @@ input {
     line-height: 20px;
     border-bottom: 1px solid #446B83;
     text-align: left;
-}
-
-/*ТАБЛИЦА для оглавления*/
-.table-marriages-contents {
-    margin: 15px auto;  /* по центру */
-    color: #ffffff;
-}
-
-.table-marriages-contents th,
-.table-marriages-contents td {
-    padding: 10px;
-    font-weight: 700;
-    text-align: left;
-    border-bottom: 5px solid #ffffff;
-    background-image: linear-gradient(to right, #153649, #7EB0D6);
-    border-radius: 8px;
 }
 
 /*Подвал*/
@@ -254,3 +238,80 @@ input {
     margin-right: 15px;
 }
 
+.sidenav {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    align-items: center;
+    left: 0;
+    background: #365E78;
+    overflow-x: hidden;
+    transition: 0.2s;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    font-weight: 700;
+}
+
+.sidenav .closebtn {
+    font-size: 36px;
+    text-align: right;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.period-selection-form {
+    font-weight: 700;
+}
+
+.btn {
+    background-color: #477c9f;
+    border: none;
+    color: #ffffff;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.menu-button {
+    font-weight: 700;
+    font-size: 1.25em;
+    cursor: pointer;
+    margin-left: 10px;
+    overflow: hidden;
+    position: fixed;
+    padding: 15px;
+    background: #365E78;
+    color: #ffffff;
+    z-index: 1;
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+                0 100px 80px rgba(0, 0, 0, 0.12);
+}
+
+.menu-button-section {
+    margin: 10px;
+    max-width: 1200px;
+    padding: 10px 5px 10px 5px;
+    background-color: #ffffff;
+    text-align: center;
+}

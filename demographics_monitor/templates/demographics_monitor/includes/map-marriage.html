@@ -11,7 +11,7 @@
             align: 'left',
             floating: true,
             title: {
-                text: 'на 1 000 человек населения'
+                text: 'браков на 1 000 человек населения'
             }
         },
         mapNavigation: {
@@ -19,7 +19,7 @@
         },
         series: [{
             data: {{ marriage_map|safe}},
-            name: 'на 1 000 человек населения',
+            name: 'браков на 1 000 человек населения',
             dataLabels: {
                 enabled: true,
                 format: '{point.name}'

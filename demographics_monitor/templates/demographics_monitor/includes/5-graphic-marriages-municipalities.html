@@ -1,10 +1,10 @@
 <script>
-    Highcharts.chart('container8', {
+    Highcharts.chart('container5', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Сельская местность, {{ years|first }}—{{ years|last }} гг.',
+            text: 'Индекс разводимости, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -34,14 +34,14 @@
                 }
             },
             title: {
-                text: 'браков (разводов) на 1 000 человек населения',
+                text: 'разводов на 100 бр.',
                 style: {
                         color: 'black'
                     }
             }
         },
         tooltip: {
-            valueSuffix: ' браков (разводов) на 1 000 человек населения'
+            valueSuffix: ' разводов на 100 бр.'
         },
         plotOptions: {
             column: {
@@ -51,24 +51,35 @@
         },
         series: [
             {
-                name: 'Общий коэффициент брачности',
+                name: 'Городская местность',
                 dataLabels: {
                     enabled: true,
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values12|safe }},
-                color: '#71a0b2'
+                data: {{ values10|safe }},
+                color: '#db5454'
             },
             {
-                name: 'Общий коэффициент разводимости',
+                name: 'Сельская местность',
                 dataLabels: {
                     enabled: true,
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values13|safe }},
+                data: {{ values11|safe }},
                 color: '#e47f7f'
+            },
+            {
+                name: '{{ selected_territory }}',
+                type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values3|safe }},
+                color: '#d22929'
             }
         ]
     });

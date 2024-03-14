@@ -29,12 +29,15 @@
         yAxis: {
             min: 0,
             labels: {
+                formatter: function() {
+                        return this.value; // Возвращает значение метки без изменений
+                    },
                 style: {
                     color: 'black'
                 }
             },
             title: {
-                text: '1 000 единиц',
+                text: 'единиц',
                 style: {
                         color: 'black'
                     }
@@ -52,17 +55,32 @@
         series: [
             {
                 name: 'Городская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values4|safe }},
                 color: '#418198'
             },
             {
                 name: 'Сельская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values7|safe }},
                 color: '#71a0b2'
             },
             {
                 name: 'Алтайский край',
                 type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
                 data: {{ values1|safe }},
                 color: '#12627e'
             }
