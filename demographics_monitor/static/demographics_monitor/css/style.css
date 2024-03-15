@@ -200,7 +200,7 @@ input {
 /*ТАБЛИЦА*/
 .table-marriages {
     border: none;
-    margin: 10px auto;  /*по центру*/
+    margin: 20px auto;  /*по центру*/
     border-collapse: collapse;
 }
 

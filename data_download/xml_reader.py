@@ -10,9 +10,10 @@ django.setup()
 from demographics_monitor.models import DemographicStatistics, Indicators, Territories
 
 
-# Загрузка XML данных
+# Загрузка XML данных МО
+"""
 root = ET.parse('tbl_values.xml').getroot()
-id_indicator = 422
+id_indicator = 336
 indicator = Indicators.objects.get(pk=id_indicator)
 list_id_territory = list(range(2, 73))
 list_id_territory.append(182)
@@ -26,7 +27,7 @@ for id_territory in list_id_territory:
         district = value.find('district')
         population = value.find('population')
         if code_indicator is not None and district is not None:
-            if code_indicator.text == '173' and district.text == str(id_territory):
+            if code_indicator.text == '85' and district.text == str(id_territory):
                 value_indicator = Decimal(value.find('value_indicator').text)
                 period = int(value.find('period').text)
                 indicator_values.append((value_indicator, period))
@@ -48,12 +49,15 @@ for id_territory in list_id_territory:
                 is_approved=True,
             )
         print('Данные добавлены!')
-
 """
-# Загрузка XML данных
+
+
+
+
+# Загрузка XML данных по одной территории
 root = ET.parse('tbl_values.xml').getroot()
-id_indicator = 416
-id_territory = 51
+id_indicator = 303
+id_territory = 1
 
 # Получение объектов Indicators и Territories по их ID
 indicator = Indicators.objects.get(pk=id_indicator)
@@ -62,13 +66,14 @@ indicator_values = []
 for value in root.findall('.//tbl_values'):
     code_indicator = value.find('code_indicator')
     district = value.find('district')
+    gender = value.find('gender')
+    age_category = value.find('age_category')
     population = value.find('population')    
     if code_indicator is not None and district is not None and population is not None:
         # if code_indicator.text == '171' and district.text == '1' and population.text == '1':
-        if code_indicator.text == '171' and district.text == str(id_territory):
+        if code_indicator.text == '143' and district.text == str(id_territory) and gender.text == '1' and age_category.text == '2' and population.text == '1':
             value_indicator = Decimal(value.find('value_indicator').text)
             period = int(value.find('period').text)
-            # print(f'{(value_indicator, period)}')
             indicator_values.append((value_indicator, period))
 
 sorted_indicator_values = sorted(indicator_values, key=lambda x: x[1])
@@ -88,7 +93,9 @@ if append_data == 'y':
             is_approved=True,
         )
     print('Данные добавлены!')
-"""
+
+
+
 
 # ВЕДУ РАСЧЕТ ИНДЕКСА И ДОБАВЛЯЮ ЗНАЧЕНИЕ В БД
 """ 

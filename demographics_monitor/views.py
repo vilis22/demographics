@@ -52,11 +52,11 @@ section = [
     {
         'title': 'Миграция',
         'subitems': [
-            {'title': 'Динамика миграции по территории', 'url_name': 'migration'},
-            {'title': 'Динамика миграции по потокам', 'url_name': 'migration'},
-            {'title': 'Структура миграции по потокам', 'url_name': 'migration'},
-            {'title': 'Состав мигрантов по полу и основным возрастным группам', 'url_name': 'migration'},
-            {'title': 'Возрастно-половой состав мигрантов по территориям', 'url_name': 'migration'},
+            {'title': 'Динамика миграции', 'url_name': 'migration_territorial'},
+            {'title': 'Динамика миграции по потокам', 'url_name': 'migration_territorial'},
+            {'title': 'Структура миграции по потокам', 'url_name': 'migration_territorial'},
+            {'title': 'Состав мигрантов по полу и основным возрастным группам', 'url_name': 'migration_territorial'},
+            {'title': 'Возрастно-половой состав мигрантов по территориям', 'url_name': 'migration_territorial'},
         ]
     },
     {
@@ -174,14 +174,108 @@ def mortality(request):
     return render(request, "demographics_monitor/mortality.html", context=data)
 
 
-def migration(request):
-    """Миграция"""
-    data = {
-        'title': 'Миграция',
-        'menu': menu,
-        'section': section,
-    }
-    return render(request, "demographics_monitor/migration.html", context=data)
+def migration_territorial(request):
+    """Миграция по территориям"""
+    years = list(range(2018, 2023))
+    territory_level = 1
+    selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+
+    if request.method == "POST":
+        form = PeriodSelectionForm(request.POST)
+        if form.is_valid():
+            territory_level = int(form.cleaned_data['territory_level'])
+            selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+            start_date = int(form.cleaned_data['start_date'])
+            end_date = int(form.cleaned_data['end_date'])
+            years = list(range(start_date, end_date + 1))
+    else:
+        form = PeriodSelectionForm
+
+    if territory_level == 1:
+        # indicators = list(range(410, 431))
+        indicators = [300, 301, 302, 336, 337, 338]
+        territories = [1, 74, 73]
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id__in=indicators,
+            territory_id__in=territories,
+            year__in=years
+        ).order_by('indicator_id')
+        data_by_indicator = {}
+        list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+        for data in data_last_three_years:
+            if data.territory_id == 74:
+                indicator_name = data.indicator.indicator_name + ' СФО'
+            elif data.territory_id == 73:
+                indicator_name = data.indicator.indicator_name + ' РФ'
+            else:
+                indicator_name = data.indicator.indicator_name
+            unit_name = data.indicator.unit_measurement.unit_name
+            if indicator_name not in data_by_indicator:
+                data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+
+            if data.indicator.unit_measurement.id in list_int_id:
+                data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+            else:
+                data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
+        values1 = [data_by_indicator.get('Число прибывших в АК', {'values': [''] * len(years)})['values'][y] for y in years]
+        values2 = [data_by_indicator.get('Число прибывших в городскую местность', {'values': [''] * len(years)})['values'][y] for y in years]
+        values3 = [data_by_indicator.get('Число прибывших в сельскую местность', {'values': [''] * len(years)})['values'][y] for y in years]
+        values4 = [data_by_indicator.get('Число выбывших из Алтайского края', {'values': [''] * len(years)})['values'][y] for y in years]
+        values5 = [data_by_indicator.get('Число выбывших из городской местности', {'values': [''] * len(years)})['values'][y] for y in years]
+        values6 = [data_by_indicator.get('Число выбывших из сельской местности', {'values': [''] * len(years)})['values'][y] for y in years]
+
+        context_data = {
+            'title': 'Миграция',
+            'menu': menu,
+            'section': section,
+            'form': form,
+            'data_by_indicator': data_by_indicator,
+            'years': years,
+            'selected_territory': selected_territory,
+            'values1': values1,
+            'values2': values2,
+            'values3': values3,
+            'values4': values4,
+            'values5': values5,
+            'values6': values6,
+        }
+        return render(request, "demographics_monitor/migration-territorial.html", context=context_data)
+    else:
+        # Данные по муниципальному образованию
+        indicators = [300, 336]
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id__in=indicators,
+            territory_id=territory_level,
+            year__in=years
+        ).order_by('indicator_id')
+        data_by_indicator = {}
+        list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+        for data in data_last_three_years:
+            indicator_name = data.indicator.indicator_name
+            unit_name = data.indicator.unit_measurement.unit_name
+            if indicator_name not in data_by_indicator:
+                data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+
+            if data.indicator.unit_measurement.id in list_int_id:
+                data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+            else:
+                data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
+
+        values1 = get_values_for_key(data_by_indicator, 'Число прибывших в АК', years)
+        values4 = get_values_for_key(data_by_indicator, 'Число выбывших из Алтайского края', years)
+
+        context_data = {
+            'title': 'Миграция',
+            'menu': menu,
+            'section': section,
+            'form': form,
+            'data_by_indicator': data_by_indicator,
+            'years': years,
+            'selected_territory': selected_territory,
+            'values1': values1,
+            'values4': values4,
+        }
+        return render(request, "demographics_monitor/migration-territorial-municipalities.html", context=context_data)
 
 
 def get_values_for_key(data, key, years):

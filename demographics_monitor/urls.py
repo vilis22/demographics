@@ -12,6 +12,7 @@ urlpatterns = [
     path('population/', views.population, name='population'),  # Численность и структура населения
     path('fertility/', views.fertility, name='fertility'),  # Рождаемость
     path('mortality/', views.mortality, name='mortality'),  # Смертность
-    path('migration/', views.migration, name='migration'),  # Миграция
+    path('migration/', views.migration_territorial, name='migration_territorial'),  # Миграция по территориям
+
     path('marriages/', views.marriages, name='marriages')  # Браки и разводы
 ]
