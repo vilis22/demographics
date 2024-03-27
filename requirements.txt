@@ -1,5 +1,5 @@
 asgiref==3.7.2
-Django==3.2.23
+Django==3.2.25
 django-extensions==3.2.3
 pep8==1.7.1
 pkg-resources==0.0.0
