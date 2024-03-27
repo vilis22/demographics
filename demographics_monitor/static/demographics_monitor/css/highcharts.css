@@ -5,6 +5,36 @@
     margin: 1em auto;
 }
 
+#container-1-440,
+#container-2-440,
+#container-3-440,
+#container-4-440,
+#container-5-440,
+#container-6-440,
+#container-7-440,
+#container-8-440,
+#container-9-440,
+#container-10-440,
+#container-11-440,
+#container-12-440,
+#container-13-440,
+#container-14-440,
+#container-15-440,
+#container-16-440,
+#container-17-440,
+#container-18-440,
+#container-19-440,
+#container-20-440,
+#container-21-440,
+#container-22-440,
+#container-23-440,
+#container-24-440,
+#container-25-440,
+#container-26-440,
+#container-27-440,
+#container-28-440,
+#container-29-440,
+#container-30-440,
 #container1,
 #container2,
 #container3,
@@ -16,15 +46,36 @@
 #container9,
 #container10,
 #container11,
-#container12,
-#container13 {
+#container012,
+#container013,
+#container014,
+#container15,
+#container16,
+#container17,
+#container18 {
     min-height: 440px;
 }
 
+#container_1_900,
+#container_2_900,
+#container_marriage,
+#container_divorces_coefficient,
+#container_divorces_index {
+    min-height: 900px;
+    margin: 0 auto;
+}
+
+#container_1_2300,
+#container_2_2300,
 #container12,
 #container13,
-#container14 {
+#container14,
+#container19 {
     min-height: 2300px;
+}
+
+#container20 {
+    min-height: 800px;
 }
 
 .highcharts-data-table table {
@@ -61,13 +112,6 @@
 
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
-}
-
-#container_marriage,
-#container_divorces_coefficient,
-#container_divorces_index {
-    min-height: 900px;
-    margin: 0 auto;
 }
 
 .loading {

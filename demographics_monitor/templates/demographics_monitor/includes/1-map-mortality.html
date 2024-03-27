@@ -1,0 +1,29 @@
+<script>
+    Highcharts.mapChart('container_1_900', {
+        title: {
+            text: 'Темп прироста числа умерших, {{ years|last }} г.'
+        },
+        colorAxis: {
+            minColor: '#ffffff', // светлый красный
+            maxColor: '#d22929'  // темный красный
+        },
+        legend: {
+            align: 'left',
+            floating: true,
+            title: {
+                text: '%'
+            }
+        },
+        mapNavigation: {
+            enabled: true
+        },
+        series: [{
+            data: {{ map_1|safe}},
+            name: '%',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+</script>

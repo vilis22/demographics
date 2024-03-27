@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'demographics_monitor/includes/nav.html' %}
+<main class="main">
+    <div class="section-name">
+        Основные показатели смертности и продолжительность жизни
+    </div>
+
+    <div class="menu-button" onclick="openNav()">
+        ☰ Меню
+    </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <div class="menu-button-section">
+            <form action="" method="post" class="period-selection-form">
+                {% csrf_token %}
+                <label for="start_date">Территория: </label>
+                {{ form.territory_level }}
+                <br>
+                <br>
+                <label for="start_date">Период с </label>
+                {{ form.start_date }}
+                <label for="end_date">по</label>
+                {{ form.end_date }}
+                <br>
+                <br>
+                <input type="submit" value="Показать">
+            </form>
+        </div>
+        <a href="#table-1">Табл. 1 — Основные показатели смертности и ожидаемая продолжительность жизни</a>
+        <a href="#figure-1">Рис.1 - Рейтинг муниципальных образований Алтайского края</a>
+        <a href="#figure-2">Рис. 2 — Пространственная дифференциация показателей</a>
+        <a href="#figure-3">Рис. 3 — Динамика числа умерших в разрезе территорий</a>
+        <a href="#figure-4">Рис. 4 — Динамика темпа прироста числа умерших в разрезе территорий</a>
+        <a href="#figure-5">Рис. 5 — Динамика ожидаемой продолжительности жизни при рождении в разрезе территорий</a>
+    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "330px";
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="table-1">
+            Табл. 1 — Основные показатели смертности и ожидаемая продолжительность жизни, {{ selected_territory }}, {{ years|first }}—{{ years|last }} гг.
+        </div>
+
+        <table class="table-marriages">
+            <thead>
+                <tr>
+                    <th>Показатель</th>
+                    <th>Единица измерения</th>
+                    {% for year in years %}
+                        <th>{{ year }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% load custom_tags %}
+                {% for indicator, data in data_by_indicator.items %}
+                    <tr>
+                        <td>{{ indicator }}</td>
+                        <td>{{ data.unit }}</td>
+                        {% for year in years %}
+                            <td>{{ data.values|get_item:year }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-1">
+            Рис. 1 — Рейтинг муниципальных образований Алтайского края
+        </div>
+        <figure class="highcharts-figure"><div id="container_1_2300"></div></figure>
+        {% include 'demographics_monitor/includes/1-rating-mortality.html' %}
+        <figure class="highcharts-figure"><div id="container_2_2300"></div></figure>
+        {% include 'demographics_monitor/includes/2-rating-mortality.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-2">
+            Рис. 2 — Пространственная дифференциация показателей
+        </div>
+        <figure class="highcharts-figure"><div id="container_1_900"></div></figure>
+        {% include 'demographics_monitor/includes/1-map-mortality.html' %}
+        <figure class="highcharts-figure"><div id="container_2_900"></div></figure>
+        {% include 'demographics_monitor/includes/2-map-mortality.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-3">
+            Рис. 3 — Динамика числа умерших в разрезе территорий
+        </div>
+        <figure class="highcharts-figure"><div id="container-1-440"></div></figure>
+        {% include 'demographics_monitor/includes/1-graphic-mortality.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-4">
+            Рис. 4 — Динамика темпа прироста числа умерших в разрезе территорий
+        </div>
+        <figure class="highcharts-figure"><div id="container-2-440"></div></figure>
+        {% include 'demographics_monitor/includes/2-graphic-mortality.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-5">
+            Рис. 5 — Динамика ожидаемой продолжительности жизни при рождении в разрезе территорий
+        </div>
+        <figure class="highcharts-figure"><div id="container-3-440"></div></figure>
+        {% include 'demographics_monitor/includes/3-graphic-mortality.html' %}
+    </div>
+
+</main>
+{% endblock %}

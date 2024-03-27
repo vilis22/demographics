@@ -81,6 +81,7 @@ class PeriodSelectionForm(forms.Form):
     territory_level = forms.ChoiceField(
         choices=list_territories,
         initial='Алтайский край',
+        widget=forms.Select(attrs={'class': 'disabled-territory'}),
     )
 
     date = [(i, i) for i in range(2011, 2023)]

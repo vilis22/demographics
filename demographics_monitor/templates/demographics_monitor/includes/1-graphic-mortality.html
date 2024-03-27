@@ -1,10 +1,10 @@
 <script>
-    Highcharts.chart('container5', {
+    Highcharts.chart('container-1-440', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Убывшие, {{ years|first }}—{{ years|last }} гг.',
+            text: 'Число умерших, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -60,7 +60,7 @@
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values5|safe }},
+                data: {{ values.2|safe }},
                 color: '#db5454'
             },
             {
@@ -70,7 +70,7 @@
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values6|safe }},
+                data: {{ values.3|safe }},
                 color: '#e47f7f'
             },
             {
@@ -81,7 +81,7 @@
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
                 type: 'line',
-                data: {{ values4|safe }},
+                data: {{ values.0|safe }},
                 color: '#d22929'
             }
         ]

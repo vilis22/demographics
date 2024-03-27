@@ -1,0 +1,78 @@
+<script>
+    Highcharts.chart('container-8-440', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Городская местность, {{ years|first }}—{{ years|last }} гг.',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                formatter: function() {
+                        return this.value; // Возвращает значение метки без изменений
+                    },
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: 'человек',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' человек'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Мужчины',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.7|safe }},
+                color: '#418198'
+            },
+            {
+                name: 'Женщины',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.16|safe }},
+                color: '#418198'
+            }
+        ]
+    });
+</script>

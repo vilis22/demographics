@@ -1,0 +1,55 @@
+<script>
+    Highcharts.chart('container19', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Миграционный прирост в АК за счет субьектов РФ, {{ years|last }} г.',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left'
+        },
+        xAxis: {
+            categories: {{ subjects|safe }},
+            title: {
+                text: null
+            },
+            gridLineWidth: 1,
+            lineWidth: 0
+        },
+        yAxis: {
+            title: {
+                text: 'человек',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            gridLineWidth: 0
+        },
+        tooltip: {
+            valueSuffix: ' человек'
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: '15%',
+                dataLabels: {
+                    enabled: true
+                },
+                groupPadding: 0.1
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Год: {{ years|last }}',
+            data: {{ values_colors|safe }}
+        }]
+    });
+</script>

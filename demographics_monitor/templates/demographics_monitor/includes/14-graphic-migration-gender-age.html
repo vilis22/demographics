@@ -1,10 +1,10 @@
 <script>
-    Highcharts.chart('container4', {
+    Highcharts.chart('container-14-440', {
         chart: {
             type: 'column'
         },
         title: {
-            text: 'Прибывшие, {{ years|first }}—{{ years|last }} гг.',
+            text: 'Городская местность, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -54,35 +54,24 @@
         },
         series: [
             {
-                name: 'Городская местность',
+                name: 'Мужчины',
                 dataLabels: {
                     enabled: true,
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values2|safe }},
-                color: '#418198'
+                data: {{ values.22|safe }},
+                color: '#db5454'
             },
             {
-                name: 'Сельская местность',
+                name: 'Женщины',
                 dataLabels: {
                     enabled: true,
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values3|safe }},
-                color: '#71a0b2'
-            },
-            {
-                name: 'Алтайский край',
-                type: 'line',
-                dataLabels: {
-                    enabled: true,
-                    y: -30, // Смещение по вертикали для лучшего отображения
-                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
-                },
-                data: {{ values1|safe }},
-                color: '#12627e'
+                data: {{ values.31|safe }},
+                color: '#db5454'
             }
         ]
     });

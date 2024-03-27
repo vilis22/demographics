@@ -11,8 +11,14 @@ urlpatterns = [
     path('target/', views.target, name='target'),  # Целевые показатели и прогноз
     path('population/', views.population, name='population'),  # Численность и структура населения
     path('fertility/', views.fertility, name='fertility'),  # Рождаемость
-    path('mortality/', views.mortality, name='mortality'),  # Смертность
-    path('migration/', views.migration_territorial, name='migration_territorial'),  # Миграция по территориям
+
+    path('mortality_main/', views.mortality_main, name='mortality_main'),  # Смертность
+
+    path('migration_threads/', views.migration_threads, name='migration_threads'),  # Миграция по потокам
+    path('migration_gender/', views.migration_gender, name='migration_gender'),  # Миграция по полу
+    path('migration_age/', views.migration_age, name='migration_age'),  # Миграция по возрастным группам
+    path('migration_gender_age/', views.migration_gender_age, name='migration_gender_age'),  # Миграция по полу и возрастным группам
+
 
     path('marriages/', views.marriages, name='marriages')  # Браки и разводы
 ]

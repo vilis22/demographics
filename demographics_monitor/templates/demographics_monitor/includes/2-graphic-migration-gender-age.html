@@ -1,10 +1,10 @@
 <script>
-    Highcharts.chart('container1', {
+    Highcharts.chart('container-2-440', {
         chart: {
             type: 'column'
         },
         title: {
-            text: '{{ selected_territory }}, {{ years|first }}—{{ years|last }} гг.',
+            text: 'Городская местность, {{ years|first }}—{{ years|last }} гг.',
             align: 'center'
         },
         subtitle: {
@@ -31,7 +31,7 @@
             labels: {
                 formatter: function() {
                         return this.value; // Возвращает значение метки без изменений
-                },
+                    },
                 style: {
                     color: 'black'
                 }
@@ -54,24 +54,24 @@
         },
         series: [
             {
-                name: 'Прибывшие',
+                name: 'Мужчины',
                 dataLabels: {
                     enabled: true,
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values1|safe }},
-                color: '#12627e'
+                data: {{ values.1|safe }},
+                color: '#418198'
             },
             {
-                name: 'Выбывшие',
+                name: 'Женщины',
                 dataLabels: {
                     enabled: true,
                     y: -20, // Смещение по вертикали для лучшего отображения
                     verticalAlign: 'top' // Выравнивание по верхнему краю столбца
                 },
-                data: {{ values4|safe }},
-                color: '#d22929'
+                data: {{ values.10|safe }},
+                color: '#418198'
             }
         ]
     });

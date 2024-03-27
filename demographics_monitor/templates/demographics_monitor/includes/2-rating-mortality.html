@@ -1,0 +1,55 @@
+<script>
+    Highcharts.chart('container_2_2300', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Общий коэффициент смертности, {{ years|last }} г.',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left'
+        },
+        xAxis: {
+            categories: {{ municipalities_2|safe }},
+            title: {
+                text: null
+            },
+            gridLineWidth: 1,
+            lineWidth: 0
+        },
+        yAxis: {
+            title: {
+                text: 'умерших на 1 000 человек населения',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            gridLineWidth: 0
+        },
+        tooltip: {
+            valueSuffix: ' умерших на 1 000 человек населения'
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: '15%',
+                dataLabels: {
+                    enabled: true
+                },
+                groupPadding: 0.1
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Год: {{ years|last }}',
+            data: {{ values_colors_2|safe }}
+        }]
+    });
+</script>

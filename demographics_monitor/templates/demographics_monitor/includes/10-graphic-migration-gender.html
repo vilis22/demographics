@@ -1,0 +1,89 @@
+<script>
+    Highcharts.chart('container-10-440', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Выбывшие женщины, {{ years|first }}—{{ years|last }} гг.',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                formatter: function() {
+                        return this.value; // Возвращает значение метки без изменений
+                    },
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: 'человек',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' человек'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Городская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.10|safe }},
+                color: '#db5454'
+            },
+            {
+                name: 'Сельская местность',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.11|safe }},
+                color: '#e47f7f'
+            },
+            {
+                name: 'Алтайский край',
+                type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.9|safe }},
+                color: '#d22929'
+            }
+        ]
+    });
+</script>

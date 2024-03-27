@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
-from .models import DemographicStatistics, Territories
+from .models import DemographicStatistics, Territories, Indicators
 from .forms import PeriodSelectionForm
 import json
 
@@ -13,6 +13,14 @@ def get_name_and_path_by_id(id123, file_path='demographics_monitor/map.json'):
         if item['id'] == id123:
             return item['name'], item['path']
     return None, None
+
+
+def get_values_for_key(data, key, years):
+    """Принимает имя ключа и список years, а затем возвращает список значений для этого ключа, добавляя пустые строки, если ключ отсутствует."""
+    try:
+        return [data[key]['values'][y] for y in years]
+    except KeyError:
+        return [''] * len(years)
 
 
 menu = [
@@ -44,19 +52,18 @@ section = [
     {
         'title': 'Смертность',
         'subitems': [
-            {'title': 'Основные показатели смертности и продолжительность жизни', 'url_name': 'mortality'},
-            {'title': 'Возрастно-половая структура смерности населения', 'url_name': 'mortality'},
-            {'title': 'Смертность по основным причинам смертности', 'url_name': 'mortality'},
+            {'title': 'Основные показатели смертности и продолжительность жизни', 'url_name': 'mortality_main'},
+            {'title': 'Возрастно-половая структура смерности населения', 'url_name': 'mortality_main'},
+            {'title': 'Смертность по основным причинам смертности', 'url_name': 'mortality_main'},
         ]
     },
     {
         'title': 'Миграция',
         'subitems': [
-            {'title': 'Динамика миграции', 'url_name': 'migration_territorial'},
-            {'title': 'Динамика миграции по потокам', 'url_name': 'migration_territorial'},
-            {'title': 'Структура миграции по потокам', 'url_name': 'migration_territorial'},
-            {'title': 'Состав мигрантов по полу и основным возрастным группам', 'url_name': 'migration_territorial'},
-            {'title': 'Возрастно-половой состав мигрантов по территориям', 'url_name': 'migration_territorial'},
+            {'title': 'Динамика миграциии по типам', 'url_name': 'migration_threads'},
+            {'title': 'Динамика миграции по полу', 'url_name': 'migration_gender'},
+            {'title': 'Динамика миграции по возрастным группам', 'url_name': 'migration_age'},
+            {'title': 'Динамика миграции по полу и возрастным группам', 'url_name': 'migration_gender_age'},
         ]
     },
     {
@@ -164,18 +171,304 @@ def fertility(request):
     return render(request, "demographics_monitor/fertility.html", context=data)
 
 
-def mortality(request):
-    """Смертность"""
-    data = {
-        'title': 'Смертность',
+def mortality_main(request):
+    """Смертность. Основные показатели смертности и продолжительность жизни"""
+    years = list(range(2018, 2023))
+    territory_level = 1
+    selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level),
+                              None)
+
+    if request.method == "POST":
+        form = PeriodSelectionForm(request.POST)
+        if form.is_valid():
+            territory_level = int(form.cleaned_data['territory_level'])
+            selected_territory = next(
+                (item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+            start_date = int(form.cleaned_data['start_date'])
+            end_date = int(form.cleaned_data['end_date'])
+            years = list(range(start_date, end_date + 1))
+    else:
+        form = PeriodSelectionForm
+
+    if territory_level == 1:
+        indicators = list(range(192, 198)) + [202] + list(range(205, 210)) + [212, 213]
+        territories = [1, 74, 73]
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id__in=indicators,
+            territory_id__in=territories,
+            year__in=years
+        ).order_by('indicator_id')
+        data_by_indicator = {}
+        list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+
+        for data in data_last_three_years:
+            if data.territory_id == 74:
+                indicator_name = data.indicator.indicator_name + ' СФО'
+            elif data.territory_id == 73:
+                indicator_name = data.indicator.indicator_name + ' РФ'
+            else:
+                indicator_name = data.indicator.indicator_name
+            unit_name = data.indicator.unit_measurement.unit_name
+
+            if indicator_name not in data_by_indicator:
+                data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+
+            if data.indicator.unit_measurement.id in list_int_id:
+                data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+            else:
+                data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
+
+        values = []
+        data_last_three = Indicators.objects.filter(pk__in=indicators).order_by('pk')
+
+        for data in data_last_three:
+            values.append(get_values_for_key(data_by_indicator, data.indicator_name, years))
+
+        """Список МО для рейтингов"""
+        list_id_territory = list(range(2, 73)) + [182]
+        middle_y = ['Яровое', 'Первомайский', 'Рубцовский', 'Егорьевский', 'Алейский']  # для оторбражения на карте, другие названия районов закрывают их
+
+        """Темп прироста числа умерших"""
+        municipalities_1 = []
+        values_colors_1 = []
+        colors_1 = ['#f6d4d4', '#eda9a9', '#e47f7f', '#db5454', '#d22929']
+        map_1 = []
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id=193,
+            territory_id__in=list_id_territory,
+            year=years[-1]
+        ).order_by('value')
+        value_first = data_last_three_years.first()  # наименьшее значение
+        value_first = float(value_first.value)
+        value_last = data_last_three_years.last()  # наибольшее значение
+        value_last = float(value_last.value)
+        step = (value_last - value_first) / 5
+
+        for data in data_last_three_years:
+            territory = Territories.objects.get(pk=data.territory_id)
+            municipalities_1.append(territory.territory_name)
+            value_float = round(float(data.value), 1)
+            color_index = min(int((value_float - value_first) / step), 4)
+            values_colors_1.append({'y': value_float, 'color': colors_1[color_index]})
+            name, path = get_name_and_path_by_id(str(territory.id))
+            if name not in middle_y:
+                map_1.append({"name": name, "path": path, "value": value_float})
+            else:
+                map_1.append({"name": name, "path": path, "value": value_float, "middleY": 0.25})
+
+        """Общий коэффициент смертности"""
+        municipalities_2 = []
+        values_colors_2 = []
+        map_2 = []
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id=202,
+            territory_id__in=list_id_territory,
+            year=years[-1]
+        ).order_by('value')
+        value_first = data_last_three_years.first()  # наименьшее значение
+        value_first = float(value_first.value)
+        value_last = data_last_three_years.last()  # наибольшее значение
+        value_last = float(value_last.value)
+        step = (value_last - value_first) / 5
+
+        for data in data_last_three_years:
+            territory = Territories.objects.get(pk=data.territory_id)
+            municipalities_2.append(territory.territory_name)
+            value_float = round(float(data.value), 1)
+            color_index = min(int((value_float - value_first) / step), 4)
+            values_colors_2.append({'y': value_float, 'color': colors_1[color_index]})
+            name, path = get_name_and_path_by_id(str(territory.id))
+            if name not in middle_y:
+                map_2.append({"name": name, "path": path, "value": value_float})
+            else:
+                map_2.append({"name": name, "path": path, "value": value_float, "middleY": 0.25})
+
+        context_data = {
+            'title': 'Смертность. Основные показатели',
+            'menu': menu,
+            'section': section,
+            'form': form,
+            'data_by_indicator': data_by_indicator,
+            'years': years,
+            'selected_territory': selected_territory,
+            'values': values,
+            'municipalities_1': municipalities_1,
+            'values_colors_1': values_colors_1,
+            'municipalities_2': municipalities_2,
+            'values_colors_2': values_colors_2,
+            'map_1': map_1,
+            'map_2': map_2,
+        }
+        return render(request, "demographics_monitor/mortality-main.html", context=context_data)
+    else:
+        return None
+
+
+def migration_age(request):
+    """Миграция. Динамика миграции по возрастным группам"""
+    years = list(range(2018, 2023))
+    territory_level = 1
+    selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+    if request.method == "POST":
+        form = PeriodSelectionForm(request.POST)
+        if form.is_valid():
+            territory_level = int(form.cleaned_data['territory_level'])
+            selected_territory = next(
+                (item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+            start_date = int(form.cleaned_data['start_date'])
+            end_date = int(form.cleaned_data['end_date'])
+            years = list(range(start_date, end_date + 1))
+    else:
+        form = PeriodSelectionForm
+
+    indicators = list(range(303, 312)) + list(range(339, 348))
+    data_last_three_years = DemographicStatistics.objects.filter(
+        indicator_id__in=indicators,
+        territory_id=territory_level,
+        year__in=years
+    ).order_by('indicator_id')
+    data_by_indicator = {}
+    list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+
+    for data in data_last_three_years:
+        indicator_name = data.indicator.indicator_name
+        unit_name = data.indicator.unit_measurement.unit_name
+        if indicator_name not in data_by_indicator:
+            data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+        if data.indicator.unit_measurement.id in list_int_id:
+            data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+        else:
+            data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
+
+    values = []
+    data_last_three = Indicators.objects.filter(pk__in=indicators).order_by('pk')
+
+    for data in data_last_three:
+        values.append([data_by_indicator.get(data.indicator_name, {'values': [''] * len(years)})['values'][y] for y in years])
+
+    context_data = {
+        'title': 'Динамика миграции по возрастным группам',
         'menu': menu,
         'section': section,
+        'form': form,
+        'data_by_indicator': data_by_indicator,
+        'years': years,
+        'selected_territory': selected_territory,
+        'values': values,
     }
-    return render(request, "demographics_monitor/mortality.html", context=data)
+    return render(request, "demographics_monitor/migration-age.html", context=context_data)
 
 
-def migration_territorial(request):
-    """Миграция по территориям"""
+def migration_gender(request):
+    """Миграция. Динамика миграции по полу"""
+    years = list(range(2018, 2023))
+    territory_level = 1
+    selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+    if request.method == "POST":
+        form = PeriodSelectionForm(request.POST)
+        if form.is_valid():
+            territory_level = int(form.cleaned_data['territory_level'])
+            selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+            start_date = int(form.cleaned_data['start_date'])
+            end_date = int(form.cleaned_data['end_date'])
+            years = list(range(start_date, end_date + 1))
+    else:
+        form = PeriodSelectionForm
+
+    indicators = list(range(312, 315)) + list(range(324, 327)) + list(range(348, 351)) + list(range(360, 363))
+    data_last_three_years = DemographicStatistics.objects.filter(
+        indicator_id__in=indicators,
+        territory_id=territory_level,
+        year__in=years
+    ).order_by('indicator_id')
+    data_by_indicator = {}
+    list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+
+    for data in data_last_three_years:
+        indicator_name = data.indicator.indicator_name
+        unit_name = data.indicator.unit_measurement.unit_name
+        if indicator_name not in data_by_indicator:
+            data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+        if data.indicator.unit_measurement.id in list_int_id:
+            data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+        else:
+            data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
+
+    values = []
+    data_last_three = Indicators.objects.filter(pk__in=indicators).order_by('pk')
+
+    for data in data_last_three:
+        values.append([data_by_indicator.get(data.indicator_name, {'values': [''] * len(years)})['values'][y] for y in years])
+
+    context_data = {
+        'title': 'Динамика миграции по полу',
+        'menu': menu,
+        'section': section,
+        'form': form,
+        'data_by_indicator': data_by_indicator,
+        'years': years,
+        'selected_territory': selected_territory,
+        'values': values,
+    }
+    return render(request, "demographics_monitor/migration-gender.html", context=context_data)
+
+
+def migration_gender_age(request):
+    """Миграция. Динамика миграции по полу и возрасту"""
+    years = list(range(2018, 2023))
+    territory_level = 1
+    selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+    if request.method == "POST":
+        form = PeriodSelectionForm(request.POST)
+        if form.is_valid():
+            territory_level = int(form.cleaned_data['territory_level'])
+            selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
+            start_date = int(form.cleaned_data['start_date'])
+            end_date = int(form.cleaned_data['end_date'])
+            years = list(range(start_date, end_date + 1))
+    else:
+        form = PeriodSelectionForm
+
+    indicators = list(range(315, 324)) + list(range(327, 336)) + list(range(351, 360)) + list(range(363, 372))
+    data_last_three_years = DemographicStatistics.objects.filter(
+        indicator_id__in=indicators,
+        territory_id=territory_level,
+        year__in=years
+    ).order_by('indicator_id')
+    data_by_indicator = {}
+    list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+
+    for data in data_last_three_years:
+        indicator_name = data.indicator.indicator_name
+        unit_name = data.indicator.unit_measurement.unit_name
+        if indicator_name not in data_by_indicator:
+            data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+        if data.indicator.unit_measurement.id in list_int_id:
+            data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+        else:
+            data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
+
+    values = []
+    data_last_three = Indicators.objects.filter(pk__in=indicators).order_by('pk')
+
+    for data in data_last_three:
+        values.append([data_by_indicator.get(data.indicator_name, {'values': [''] * len(years)})['values'][y] for y in years])
+
+    context_data = {
+        'title': 'Динамика миграции по полу и возрастным группам',
+        'menu': menu,
+        'section': section,
+        'form': form,
+        'data_by_indicator': data_by_indicator,
+        'years': years,
+        'selected_territory': selected_territory,
+        'values': values,
+    }
+    return render(request, "demographics_monitor/migration-gender-age.html", context=context_data)
+
+
+def migration_threads(request):
+    """Миграция. Динамика миграции по типам"""
     years = list(range(2018, 2023))
     territory_level = 1
     selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
@@ -192,57 +485,7 @@ def migration_territorial(request):
         form = PeriodSelectionForm
 
     if territory_level == 1:
-        # indicators = list(range(410, 431))
-        indicators = [300, 301, 302, 336, 337, 338]
-        territories = [1, 74, 73]
-        data_last_three_years = DemographicStatistics.objects.filter(
-            indicator_id__in=indicators,
-            territory_id__in=territories,
-            year__in=years
-        ).order_by('indicator_id')
-        data_by_indicator = {}
-        list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
-        for data in data_last_three_years:
-            if data.territory_id == 74:
-                indicator_name = data.indicator.indicator_name + ' СФО'
-            elif data.territory_id == 73:
-                indicator_name = data.indicator.indicator_name + ' РФ'
-            else:
-                indicator_name = data.indicator.indicator_name
-            unit_name = data.indicator.unit_measurement.unit_name
-            if indicator_name not in data_by_indicator:
-                data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
-
-            if data.indicator.unit_measurement.id in list_int_id:
-                data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
-            else:
-                data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
-        values1 = [data_by_indicator.get('Число прибывших в АК', {'values': [''] * len(years)})['values'][y] for y in years]
-        values2 = [data_by_indicator.get('Число прибывших в городскую местность', {'values': [''] * len(years)})['values'][y] for y in years]
-        values3 = [data_by_indicator.get('Число прибывших в сельскую местность', {'values': [''] * len(years)})['values'][y] for y in years]
-        values4 = [data_by_indicator.get('Число выбывших из Алтайского края', {'values': [''] * len(years)})['values'][y] for y in years]
-        values5 = [data_by_indicator.get('Число выбывших из городской местности', {'values': [''] * len(years)})['values'][y] for y in years]
-        values6 = [data_by_indicator.get('Число выбывших из сельской местности', {'values': [''] * len(years)})['values'][y] for y in years]
-
-        context_data = {
-            'title': 'Миграция',
-            'menu': menu,
-            'section': section,
-            'form': form,
-            'data_by_indicator': data_by_indicator,
-            'years': years,
-            'selected_territory': selected_territory,
-            'values1': values1,
-            'values2': values2,
-            'values3': values3,
-            'values4': values4,
-            'values5': values5,
-            'values6': values6,
-        }
-        return render(request, "demographics_monitor/migration-territorial.html", context=context_data)
-    else:
-        # Данные по муниципальному образованию
-        indicators = [300, 336]
+        indicators = [300, 301, 302, 336, 337, 338] + list(range(372, 408))
         data_last_three_years = DemographicStatistics.objects.filter(
             indicator_id__in=indicators,
             territory_id=territory_level,
@@ -250,44 +493,166 @@ def migration_territorial(request):
         ).order_by('indicator_id')
         data_by_indicator = {}
         list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
+
         for data in data_last_three_years:
             indicator_name = data.indicator.indicator_name
             unit_name = data.indicator.unit_measurement.unit_name
             if indicator_name not in data_by_indicator:
                 data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
-
             if data.indicator.unit_measurement.id in list_int_id:
                 data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
             else:
                 data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
 
-        values1 = get_values_for_key(data_by_indicator, 'Число прибывших в АК', years)
-        values4 = get_values_for_key(data_by_indicator, 'Число выбывших из Алтайского края', years)
+        values = []
+        data_last_three = Indicators.objects.filter(pk__in=indicators).order_by('pk')
+
+        for data in data_last_three:
+            values.append(get_values_for_key(data_by_indicator, data.indicator_name, years))
+
+        """Формируем список субьектов РФ для рейтинга"""
+        list_id_subjects = list(range(75, 157))
+        subjects = []
+        values_colors = []
+        colors = ['#12617e', '#418198', '#71a0b2', '#a0c0cb', '#d0dfe5']
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id=408,
+            territory_id__in=list_id_subjects,
+            year=years[-1]
+        ).order_by('-value')
+        value_first = data_last_three_years.first()  # наибольшее значение
+        value_first = int(value_first.value)
+        value_last = data_last_three_years.last()  # наименьшее значение
+        value_last = int(value_last.value)
+        step = (value_first - value_last) / 5
+
+        for data in data_last_three_years:
+            territory = Territories.objects.get(pk=data.territory_id)
+            subjects.append(territory.territory_name)
+            value = int(data.value)
+            color_index = min(int((value_first - value) / step), 4)
+            values_colors.append({'y': value, 'color': colors[color_index]})
+
+        """Формируем список стран для рейтинга"""
+        list_id_nations = list(range(157, 181)) + list(range(183, 226))
+        nations = []
+        values_colors_nations = []
+        colors = ['#12617e', '#418198', '#71a0b2', '#a0c0cb', '#d0dfe5']
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id=409,
+            territory_id__in=list_id_nations,
+            year=years[-1]
+        ).order_by('-value')
+        value_first = data_last_three_years.first()  # наибольшее значение
+        value_first = int(value_first.value)
+        value_last = data_last_three_years.last()  # наименьшее значение
+        value_last = int(value_last.value)
+        step = (value_first - value_last) / 5
+
+        for data in data_last_three_years:
+            territory = Territories.objects.get(pk=data.territory_id)
+            nations.append(territory.territory_name)
+            value = int(data.value)
+            color_index = min(int((value_first - value) / step), 4)
+            values_colors_nations.append({'y': value, 'color': colors[color_index]})
+
+        """Формируем данные для карты"""
+        list_id_territory = list(range(2, 73)) + [182]
+        middle_y = ['Яровое', 'Первомайский', 'Рубцовский', 'Егорьевский', 'Алейский']  # для оторбражения на карте, другие названия районов закрывают их
+
+        """Число прибывших (внутрикраевая миграция)"""
+        arrivals_map = []
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id=375,
+            territory_id__in=list_id_territory,
+            year=years[-1]
+        ).order_by('-value')
+
+        for data in data_last_three_years:
+            territory = Territories.objects.get(pk=data.territory_id)
+            name, path = get_name_and_path_by_id(str(territory.id))
+            value = int(data.value)
+            if name not in middle_y:
+                arrivals_map.append({"name": name, "path": path, "value": value})
+            else:
+                arrivals_map.append({"name": name, "path": path, "value": value, "middleY": 0.25})
+
+        """Число выбывших (внутрикраевая миграция)"""
+        departed_map = []
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id=393,
+            territory_id__in=list_id_territory,
+            year=years[-1]
+        ).order_by('-value')
+
+        for data in data_last_three_years:
+            territory = Territories.objects.get(pk=data.territory_id)
+            name, path = get_name_and_path_by_id(str(territory.id))
+            value = int(data.value)
+            if name not in middle_y:
+                departed_map.append({"name": name, "path": path, "value": value})
+            else:
+                departed_map.append({"name": name, "path": path, "value": value, "middleY": 0.25})
 
         context_data = {
-            'title': 'Миграция',
+            'title': 'Динамика миграции по типам',
             'menu': menu,
             'section': section,
             'form': form,
             'data_by_indicator': data_by_indicator,
             'years': years,
             'selected_territory': selected_territory,
-            'values1': values1,
-            'values4': values4,
+            'values': values,
+            'subjects': subjects,
+            'values_colors': values_colors,
+            'nations': nations,
+            'values_colors_nations': values_colors_nations,
+            'arrivals_map': arrivals_map,
+            'departed_map': departed_map,
         }
-        return render(request, "demographics_monitor/migration-territorial-municipalities.html", context=context_data)
+        return render(request, "demographics_monitor/migration-threads.html", context=context_data)
+    else:
+        """Данные по муниципальному образованию"""
+        indicators = [300, 336, 372, 375, 378, 381, 384, 387, 390, 393, 396, 399, 402, 405]
+        data_last_three_years = DemographicStatistics.objects.filter(
+            indicator_id__in=indicators,
+            territory_id=territory_level,
+            year__in=years
+        ).order_by('indicator_id')
+        data_by_indicator = {}
+        list_int_id = [4, 6, 9, 10]  # id единиц измерения, для которых значения являются целыми числами
 
+        for data in data_last_three_years:
+            indicator_name = data.indicator.indicator_name
+            unit_name = data.indicator.unit_measurement.unit_name
+            if indicator_name not in data_by_indicator:
+                data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
+            if data.indicator.unit_measurement.id in list_int_id:
+                data_by_indicator[indicator_name]['values'][data.year] = int(data.value)
+            else:
+                data_by_indicator[indicator_name]['values'][data.year] = round(float(data.value), 1)
 
-def get_values_for_key(data, key, years):
-    """Принимает имя ключа и список years, а затем возвращает список значений для этого ключа, добавляя пустые строки, если ключ отсутствует."""
-    try:
-        return [data[key]['values'][y] for y in years]
-    except KeyError:
-        return [''] * len(years)
+        values = []
+        data_last_three = Indicators.objects.filter(pk__in=indicators).order_by('pk')
+
+        for data in data_last_three:
+            values.append(get_values_for_key(data_by_indicator, data.indicator_name, years))
+
+        context_data = {
+            'title': 'Динамика миграции по типам',
+            'menu': menu,
+            'section': section,
+            'form': form,
+            'data_by_indicator': data_by_indicator,
+            'years': years,
+            'selected_territory': selected_territory,
+            'values': values,
+        }
+        return render(request, "demographics_monitor/migration-threads-municipalities.html", context=context_data)
 
 
 def marriages(request):
-    """ Браки и разводы - Основные показатели брасночти и разводимости """
+    """Браки и разводы. Основные показатели брасночти и разводимости """
     years = list(range(2018, 2023))
     territory_level = 1
     selected_territory = next((item[1] for item in PeriodSelectionForm.list_territories if item[0] == territory_level), None)
@@ -321,6 +686,7 @@ def marriages(request):
             else:
                 indicator_name = data.indicator.indicator_name
             unit_name = data.indicator.unit_measurement.unit_name
+
             if indicator_name not in data_by_indicator:
                 data_by_indicator[indicator_name] = {'unit': unit_name, 'values': {year: '' for year in years}}
 
@@ -346,8 +712,7 @@ def marriages(request):
         values15 = [data_by_indicator['Общий коэффициент разводимости']['values'][y] if data_by_indicator['Общий коэффициент разводимости']['values'][y] != '' else '' for y in years]
 
         """ Сформируем список МО для 3х рейтингов """
-        list_id_territory = list(range(2, 73))
-        list_id_territory.append(182)
+        list_id_territory = list(range(2, 73)) + [182]
         middle_y = ['Яровое', 'Первомайский', 'Рубцовский', 'Егорьевский', 'Алейский']  # для оторбражения на карте, другие названия районов закрывают их
 
         # Общий коэффициент брачности

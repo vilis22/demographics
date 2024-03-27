@@ -1,0 +1,55 @@
+<script>
+    Highcharts.chart('container_1_2300', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Темп прироста числа умерших, {{ years|last }} г.',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left'
+        },
+        xAxis: {
+            categories: {{ municipalities_1|safe }},
+            title: {
+                text: null
+            },
+            gridLineWidth: 1,
+            lineWidth: 0
+        },
+        yAxis: {
+            title: {
+                text: '%',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            gridLineWidth: 0
+        },
+        tooltip: {
+            valueSuffix: ' %'
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: '15%',
+                dataLabels: {
+                    enabled: true
+                },
+                groupPadding: 0.1
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Год: {{ years|last }}',
+            data: {{ values_colors_1|safe }}
+        }]
+    });
+</script>

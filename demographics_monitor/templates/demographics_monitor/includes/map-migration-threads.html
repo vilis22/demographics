@@ -1,0 +1,29 @@
+<script>
+    Highcharts.mapChart('container_marriage', {
+        title: {
+            text: 'Число прибывших в результате внутрикраевой миграции, {{ years|last }} г.'
+        },
+        colorAxis: {
+            minColor: '#ffffff', // белый
+            maxColor: '#12627e'  // темнее синий
+        },
+        legend: {
+            align: 'left',
+            floating: true,
+            title: {
+                text: 'человек'
+            }
+        },
+        mapNavigation: {
+            enabled: true
+        },
+        series: [{
+            data: {{ arrivals_map|safe}},
+            name: 'человек',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+</script>

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'demographics_monitor/includes/nav.html' %}
+<main class="main">
+    <div class="section-name">
+        Динамика миграции по типам
+    </div>
+
+    <div class="menu-button" onclick="openNav()">
+        ☰ Меню
+    </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <div class="menu-button-section">
+            <form action="" method="post" class="period-selection-form">
+                {% csrf_token %}
+                <label for="start_date">Территория: </label>
+                {{ form.territory_level }}
+                <br>
+                <br>
+                <label for="start_date">Период с </label>
+                {{ form.start_date }}
+                <label for="end_date">по</label>
+                {{ form.end_date }}
+                <br>
+                <br>
+                <input type="submit" value="Показать">
+            </form>
+        </div>
+        <a href="#table-1">Табл. 1 — Динамика миграции по потокам</a>
+        <a href="#figure-1">Рис. 1 — Динамика внутрироссийской миграции</a>
+        <a href="#figure-2">Рис. 2 — Динамика международной миграции</a>
+        <a href="#figure-3">Рис. 3 — Динамика числа прибыших в результате внутрикраевой и межрегиональной миграции</a>
+        <a href="#figure-4">Рис. 4 — Динамика числа выбывших в результате внутрикраевой и межрегиональной миграции</a>
+        <a href="#figure-5">Рис. 5 — Динамика числа прибыших из стран СНГ и дальнего зарубежья</a>
+        <a href="#figure-6">Рис. 6 — Динамика числа выбывших из стран СНГ и дальнего зарубежья</a>
+        <a href="#figure-7">Рис. 7 — Рейтинг субъектов РФ</a>
+        <a href="#figure-8">Рис. 8 — Рейтинг стран</a>
+        <a href="#figure-9">Рис. 9 — Пространственная дифференциация показателей</a>
+
+    </div>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "330px";
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="table-1">
+            Табл. 1 — Динамика миграции по потокам, {{ selected_territory }}, {{ years|first }}—{{ years|last }} гг.
+        </div>
+
+        <table class="table-marriages">
+            <thead>
+                <tr>
+                    <th>Показатель</th>
+                    <th>Единица измерения</th>
+                    {% for year in years %}
+                        <th>{{ year }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% load custom_tags %}
+                {% for indicator, data in data_by_indicator.items %}
+                    <tr>
+                        <td>{{ indicator }}</td>
+                        <td>{{ data.unit }}</td>
+                        {% for year in years %}
+                            <td>{{ data.values|get_item:year }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-1">
+            Рис. 1 — Динамика внутрироссийской миграции
+        </div>
+
+        <figure class="highcharts-figure"><div id="container1"></div></figure>
+        {% include 'demographics_monitor/includes/1-graphic-migration-threads.html' %}
+
+        <figure class="highcharts-figure"><div id="container2"></div></figure>
+        {% include 'demographics_monitor/includes/2-graphic-migration-threads.html' %}
+
+        <figure class="highcharts-figure"><div id="container3"></div></figure>
+        {% include 'demographics_monitor/includes/3-graphic-migration-threads.html' %}
+    </div>
+
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-2">
+            Рис. 2 — Динамика международной миграции
+        </div>
+
+        <figure class="highcharts-figure"><div id="container4"></div></figure>
+        {% include 'demographics_monitor/includes/4-graphic-migration-threads.html' %}
+
+        <figure class="highcharts-figure"><div id="container5"></div></figure>
+        {% include 'demographics_monitor/includes/5-graphic-migration-threads.html' %}
+
+        <figure class="highcharts-figure"><div id="container6"></div></figure>
+        {% include 'demographics_monitor/includes/6-graphic-migration-threads.html' %}
+    </div>
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-3">
+            Рис. 3 — Динамика числа прибыших в результате внутрикраевой и межрегиональной миграции
+        </div>
+
+        <figure class="highcharts-figure"><div id="container7"></div></figure>
+        {% include 'demographics_monitor/includes/7-graphic-migration-threads.html' %}
+
+        <figure class="highcharts-figure"><div id="container8"></div></figure>
+        {% include 'demographics_monitor/includes/8-graphic-migration-threads.html' %}
+
+        <figure class="highcharts-figure"><div id="container9"></div></figure>
+        {% include 'demographics_monitor/includes/9-graphic-migration-threads.html' %}
+    </div>
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-4">
+            Рис. 4 — Динамика числа выбывших в результате внутрикраевой и межрегиональной миграции
+        </div>
+
+        <figure class="highcharts-figure"><div id="container10"></div></figure>
+        {% include 'demographics_monitor/includes/10-graphic-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container11"></div></figure>
+        {% include 'demographics_monitor/includes/11-graphic-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container012"></div></figure>
+        {% include 'demographics_monitor/includes/12-graphic-migration-threads.html' %}
+    </div>
+
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-5">
+            Рис. 5 — Динамика числа прибыших из стран СНГ и дальнего зарубежья
+        </div>
+        <figure class="highcharts-figure"><div id="container013"></div></figure>
+        {% include 'demographics_monitor/includes/13-graphic-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container014"></div></figure>
+        {% include 'demographics_monitor/includes/14-graphic-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container15"></div></figure>
+        {% include 'demographics_monitor/includes/15-graphic-migration-threads.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-6">
+            Рис. 6 — Динамика числа выбывших в страны СНГ и дальнего зарубежья
+        </div>
+        <figure class="highcharts-figure"><div id="container16"></div></figure>
+        {% include 'demographics_monitor/includes/16-graphic-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container17"></div></figure>
+        {% include 'demographics_monitor/includes/17-graphic-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container18"></div></figure>
+        {% include 'demographics_monitor/includes/18-graphic-migration-threads.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-7">
+            Рис. 7 — Рейтинг субъектов РФ
+        </div>
+        <figure class="highcharts-figure"><div id="container19"></div></figure>
+        {% include 'demographics_monitor/includes/19-graphic-migration-threads.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-8">
+            Рис. 8 — Рейтинг стран
+        </div>
+        <figure class="highcharts-figure"><div id="container20"></div></figure>
+        {% include 'demographics_monitor/includes/20-graphic-migration-threads.html' %}
+    </div>
+
+    <div class="frame-section">
+        <div class="sub-section-name" id="figure-9">
+            Рис. 9 — Пространственная дифференциация показателей
+        </div>
+        <figure class="highcharts-figure"><div id="container_marriage"></div></figure>
+        {% include 'demographics_monitor/includes/map-migration-threads.html' %}
+        <figure class="highcharts-figure"><div id="container_divorces_coefficient"></div></figure>
+        {% include 'demographics_monitor/includes/map-migration-threads-departed.html' %}
+    </div>
+</main>
+{% endblock %}

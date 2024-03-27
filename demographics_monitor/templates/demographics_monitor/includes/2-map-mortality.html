@@ -1,0 +1,29 @@
+<script>
+    Highcharts.mapChart('container_2_900', {
+        title: {
+            text: 'Общий коэффициент смертности, {{ years|last }} г.'
+        },
+        colorAxis: {
+            minColor: '#ffffff', // светлый красный
+            maxColor: '#d22929'  // темный красный
+        },
+        legend: {
+            align: 'left',
+            floating: true,
+            title: {
+                text: 'умерших на 1 000 человек населения'
+            }
+        },
+        mapNavigation: {
+            enabled: true
+        },
+        series: [{
+            data: {{ map_2|safe}},
+            name: 'умерших на 1 000 человек населения',
+            dataLabels: {
+                enabled: true,
+                format: '{point.name}'
+            }
+        }]
+    });
+</script>

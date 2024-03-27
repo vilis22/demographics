@@ -1,0 +1,100 @@
+<script>
+    Highcharts.chart('container4', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Алтайский край, {{ years|first }}—{{ years|last }} гг.',
+            align: 'center'
+        },
+        subtitle: {
+            text: 'Источник: <a target="_blank" ' + 'href="https://rosstat.gov.ru/">Федеральная служба государственной статистики</a>',
+            align: 'left',
+            style: {
+                        color: 'black'
+                    }
+        },
+        xAxis: {
+            labels: {
+                style: {
+                    color: 'black'
+                }
+            },
+            categories: {{ years|safe }},
+            crosshair: true,
+            accessibility: {
+                description: 'Countries'
+            }
+        },
+        yAxis: {
+            min: 0,
+            labels: {
+                formatter: function() {
+                        return this.value; // Возвращает значение метки без изменений
+                    },
+                style: {
+                    color: 'black'
+                }
+            },
+            title: {
+                text: 'человек',
+                style: {
+                        color: 'black'
+                    }
+            }
+        },
+        tooltip: {
+            valueSuffix: ' человек'
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.05,
+                borderWidth: 0
+            }
+        },
+        series: [
+            {
+                name: 'Прибывшие',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.15|safe }},
+                color: '#12627e'
+            },
+            {
+                name: 'Выбывшие',
+                dataLabels: {
+                    enabled: true,
+                    y: -20, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.33|safe }},
+                color: '#d22929'
+            },
+            {
+                name: 'Прибывшие (всего)',
+                type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.0|safe }},
+                color: '#12627e'
+            },
+            {
+                name: 'Выбывшие (всего)',
+                type: 'line',
+                dataLabels: {
+                    enabled: true,
+                    y: -30, // Смещение по вертикали для лучшего отображения
+                    verticalAlign: 'top' // Выравнивание по верхнему краю столбца
+                },
+                data: {{ values.3|safe }},
+                color: '#d22929'
+            }
+        ]
+    });
+</script>
